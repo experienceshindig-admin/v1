@@ -1,0 +1,120 @@
+/*
+Theme Name: REIGN Child
+Theme URI: https://wbcomdesigns.com/
+Author: Wbcom Designs
+Author URI: https://wbcomdesigns.com/
+Description: Premium BuddyPress Theme with Elementor Page Builder support.
+Template: reign-theme
+Version: 1.0.0
+License: GNU General Public License v2 or later
+License URI: LICENSE
+Text Domain: reign-child
+Domain Path: /languages/
+Tags: one-column, two-columns, right-sidebar, custom-background, custom-menu, featured-images, post-formats, full-width-template, translation-ready, theme-options, threaded-comments, footer-widgets, custom-logo
+*/
+
+
+#masthead.sticky{
+    position:static !important;
+}
+.primary-menu > li a:hover:before, .version-one .primary-menu > li a:hover:before, .version-two .primary-menu > li a:hover:before, .version-three .primary-menu > li a:hover:before, .version-one .primary-menu > li a:before, .version-two .primary-menu > li a:before, .version-three .primary-menu > li a:before {
+    background: #f94e32;
+    border-radius: 0;
+    height: 5px;
+    top: 35px;
+}
+
+.shindig-search-form p,
+.shindig-search-form form {
+    display: inline-block;
+}
+.rda-seller-products-wrap {
+    display: none;
+}
+.shindig-search-form form input{
+    border:none;
+    background-color:white;
+    border-bottom: 1px solid #f95041;
+    border-radius:0px !important;
+}
+
+.lm-site-header-section{
+	display:none;
+}
+input.dokan-form-control[name="settings[bank][swift]"],
+input.dokan-form-control[name="settings[bank][iban]"] {
+    display: none;
+}
+
+li#tab-title-shipping {
+    display: none !important;
+}
+.rda-pro-single-pro-list-wrapper,
+.single-product .rda-vendor-header-top.rda-vendor-header-product,
+div#tab-seller li.seller-name span:first-child,
+div#tab-seller li.store-name span:first-child {
+    display: none;
+}
+
+#reign-sidebar-right{
+    order:1;
+}
+.post-type-archive-product .content-wrapper{
+    order:2;
+}
+
+.blog article.post {
+    vertical-align: top;
+    display: inline-block;
+    width: 30%;
+    float: left;
+    margin-right: 5%;
+    box-shadow: 0px 0px 30px -8px rgba(147,147,147,0.5);
+}
+.blog article.post:nth-child(3n){
+    margin-right:0%;
+}
+#masthead .user-link-wrap .rg-user:after{
+    display:none;
+}
+.limited-width{
+    max-width:500px;
+    margin:auto;
+    left:0;
+    right:0;
+}
+
+/*05-11-2019 NN*/
+
+body .rg-icon-wrap {
+    width: auto;
+    padding-left: 10px;
+}
+
+/*05-11-2019 NN*/
+
+@media(max-width:768px){
+   .blog article.post {
+        width: 48%;
+        margin-right:4%;
+    } 
+    .blog article.post:nth-child(3n){
+        margin-right:4%;
+    }
+    .blog article.post:nth-child(2n){
+        margin-right:0;
+    }
+}
+@media(max-width:425px){
+   .blog article.post {
+        width: 100%;
+        margin-right:0;
+    } 
+    .blog article.post:nth-child(3n){
+        margin-right:0;
+    }
+    .blog article.post:nth-child(2n){
+        margin-right:0;
+    }
+}
+
