@@ -24,6 +24,8 @@ You will need the following:
 1. A WordPress development server set up locally
 2. All the current plugins and mu-plugins from the server
 3. A copy of the database, with URLs modified for your local
+4. Delete all endurance files from mu-plugins
+5. Make sure your htaccess is a default WordPress file
 
 ## Contributing
  1. Create a branch
@@ -33,3 +35,9 @@ You will need the following:
 
 You can read about this on the [GitHub Flow](https://guides.github.com/introduction/flow/)
 documentation. Note side arrows to progress through those docs.
+
+## Troubleshooting
+If your local installation keeps redirecting, alter your sql:
+`UPDATE wp_wiy8jwtuzp_options SET option_value = 'http://shindig.local' WHERE option_name = 'wsl_settings_redirect_url';` 
+`UPDATE wp_wiy8jwtuzp_options SET option_value = 'http://shindig.local' WHERE option_name = 'siteurl';` 
+`UPDATE wp_wiy8jwtuzp_options SET option_value = 'http://shindig.local' WHERE option_name = 'home';` 
