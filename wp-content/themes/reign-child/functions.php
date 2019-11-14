@@ -66,7 +66,7 @@ function dokan_load_document_menu( $query_vars ) {
     $query_vars['menus'] = 'menus';
 	$query_vars['chefs'] = 'chefs';
     return $query_vars;
-	
+
 }
 add_filter( 'dokan_get_dashboard_nav', 'dokan_add_menus_menu' );
 function dokan_add_menus_menu( $urls ) {
@@ -145,4 +145,14 @@ function insert_attachment($file_handler,$post_id,$setthumb='false') {
     $attach_id = media_handle_upload( $file_handler, $post_id );
     if ($setthumb) update_post_meta($post_id,'_thumbnail_id',$attach_id);
     return $attach_id;
+}
+
+
+add_action( 'customize_register', 'prefix_remove_css_section', 15 );
+/**
+ * Remove the additional CSS section, introduced in 4.7, from the Customizer.
+ * @param $wp_customize WP_Customize_Manager
+ */
+function prefix_remove_css_section( $wp_customize ) {
+	$wp_customize->remove_section( 'custom_css' );
 }
