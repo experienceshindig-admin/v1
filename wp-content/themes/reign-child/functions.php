@@ -148,6 +148,22 @@ function insert_attachment($file_handler,$post_id,$setthumb='false') {
 }
 
 
+/*14-11-2019 NN Start*/
+
+/* Bypass logout confirmation.*/
+function iconic_bypass_logout_confirmation() {
+	global $wp;
+
+	if ( isset( $wp->query_vars['customer-logout'] ) ) {
+		wp_redirect( str_replace( '&amp;', '&', wp_logout_url( wc_get_page_permalink( 'myaccount' ) ) ) );
+		exit;
+	}
+}
+
+add_action( 'template_redirect', 'iconic_bypass_logout_confirmation' );
+
+/*14-11-2019 NN end*/
+
 add_action( 'customize_register', 'prefix_remove_css_section', 15 );
 /**
  * Remove the additional CSS section, introduced in 4.7, from the Customizer.
