@@ -8,7 +8,7 @@
  *
  *  @package dokan
  */
- 
+
 ?>
 
 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"/>
@@ -24,8 +24,8 @@
 
 <div class="dokan-dashboard-wrap">
     <?php
-    
-    
+
+
 
         /**
          *  dokan_dashboard_content_before hook
@@ -34,12 +34,12 @@
          *
          *  @since 2.4
          */
-         
+
         do_action( 'dokan_dashboard_content_before' );
     ?>
 
     <div class="dokan-dashboard-content">
-        
+
         <?php
             /**
              *  dokan_dashboard_content_before hook
@@ -51,12 +51,12 @@
             do_action( 'dokan_menu_content_inside_before' );
         ?>
 	<style>
-	
+
 	  #calendar {
     max-width: 900px;
     margin: 0 auto;
   }
-  
+
   .fc-view-container table {
     overflow: hidden;
     height: 100%;
@@ -95,7 +95,7 @@ thead.fc-head {
 td.fc-head-container.fc-widget-header {
     width: 100% !important;
 }
-	
+
 	.add-new-cheff-section-popup .form-group {
     display: block;
     overflow: hidden;
@@ -595,7 +595,7 @@ td.fc-head-container.fc-widget-header {
 			padding: 10px 15px;
 			cursor: pointer;
 		}
-		
+
 		.tabs button {
    color: #fff;
     padding: 0px 35px;
@@ -612,7 +612,7 @@ td.fc-head-container.fc-widget-header {
 
 
 		}
-		
+
 		div#tab-1 table {
     margin-top: 20px;
 }
@@ -628,7 +628,7 @@ div#tab-1 table thead tr th,div#tab-1 table tbody tr td {
     padding: 10px !important;
     border: 1px solid #aeaaaa;
 }
-		
+
 		.add-new-cheff-section form .form-group {
     overflow: hidden;
     margin-top: 20px;
@@ -639,8 +639,8 @@ div#tab-1 table thead tr th,div#tab-1 table tbody tr td {
 }
 	.modal-content {
     top: 50px;
-}	
-	
+}
+
 
 		.tab-content.current{
 			display: inherit;
@@ -650,9 +650,9 @@ div#tab-1 table thead tr th,div#tab-1 table tbody tr td {
         <header class="dokan-dashboard-header">
     		<h1 class="entry-title">Our Chefs</h1>
 		</header>
-		
-	
-		
+
+
+
           		<div class="contain">
 
 	<ul class="tabs">
@@ -661,32 +661,36 @@ div#tab-1 table thead tr th,div#tab-1 table tbody tr td {
 		<li class="button tab-link" data-tab="tab-3"><button>Calender</button></li>
 	<!--	<li class="button tab-link" data-tab="tab-4"><button>Manage Resource</button></li>-->
 	</ul>
-	
+
 	 <?php
-	 // Function to get all the dates in given range 
-function getDatesFromRange($start, $end, $format = 'Y-m-d') { 
-      
-    // Declare an empty array 
-    $array = array(); 
-      
-    // Variable that store the date interval 
-    // of period 1 day 
-    $interval = new DateInterval('P1D'); 
-  
-    $realEnd = new DateTime($end); 
-    $realEnd->add($interval); 
-  
-    $period = new DatePeriod(new DateTime($start), $interval, $realEnd); 
-  
-    // Use loop to store date into array 
-    foreach($period as $date) {                  
-        $array[] = $date->format($format);  
-    } 
-  
-    // Return the array elements 
-    return $array; 
-} 
-  
+	 // Function to get all the dates in given range
+function getDatesFromRange($start, $end, $format = 'Y-m-d') {
+
+		if(strtotime($start) === false || strtotime($end) === false) {
+			return array();
+		}
+
+    // Declare an empty array
+    $array = array();
+
+    // Variable that store the date interval
+    // of period 1 day
+    $interval = new DateInterval('P1D');
+
+    $realEnd = new DateTime($end);
+    $realEnd->add($interval);
+
+    $period = new DatePeriod(new DateTime($start), $interval, $realEnd);
+
+    // Use loop to store date into array
+    foreach($period as $date) {
+        $array[] = $date->format($format);
+    }
+
+    // Return the array elements
+    return $array;
+}
+
 
 	 $user_id = get_current_user_id();
 	 $message = '';
@@ -715,7 +719,7 @@ function getDatesFromRange($start, $end, $format = 'Y-m-d') {
         	 update_field( 'to', $_POST['chef_date_to'], $post_id );
 			 update_field( 'chef_years_of_experience', $_POST['chef_years_of_experience'], $post_id );
 			 update_field( 'chef_certificates', $_POST['chef_certificates'], $post_id );
-			 
+
         	 $message = 'Chef has been inserted';
         	 $alert = 'alert-success';
 	     }elseif($_POST && isset($_POST['chef_submit_edit'])){
@@ -733,7 +737,7 @@ function getDatesFromRange($start, $end, $format = 'Y-m-d') {
         	 update_field( 'to', $_POST['chef_date_to_edit'], $_POST['post_id']);
 			  update_field( 'chef_years_of_experience', $_POST['chef_years_of_experience_edit'], $_POST['post_id']);
 			  update_field( 'chef_certificates', $_POST['chef_certificates_edit'], $_POST['post_id']);
-			  
+
         	 $message = 'Chef has been updated';
         	 $alert = 'alert-success';
 	     }
@@ -742,9 +746,9 @@ function getDatesFromRange($start, $end, $format = 'Y-m-d') {
 	      wp_delete_post($_GET['destroy_post']);
           $message = 'Chef has been deleted';
           $alert = 'alert-success';
-	  }	 
+	  }
 	 //GET POST DATA
-	 $args = array( 
+	 $args = array(
 	     'posts_per_page' => -1 ,
 	     'post_type'      => 'chefs',
 	     'author' => $user_id
@@ -754,7 +758,7 @@ function getDatesFromRange($start, $end, $format = 'Y-m-d') {
 	 ?>
 
 	<div id="tab-1" class="tab-content current">
-	    
+
 	    <?php
 	    if($_POST){
 	    ?>
@@ -774,7 +778,7 @@ function getDatesFromRange($start, $end, $format = 'Y-m-d') {
             </thead>
             <tbody>
                 <?php
-				
+
                  $dataArr = array();
                 if(count($chef_data)>0){
                     foreach($chef_data as $value){
@@ -790,10 +794,10 @@ function getDatesFromRange($start, $end, $format = 'Y-m-d') {
                            $date = date_format($date,"Y-m-d");
                            $data['title'] = $value->post_title;
                            $data['start'] = $date;
-                           
+
                            $dataArr[] = $data;
                         }*/
-						// Function call with passing the start date and end date 
+						// Function call with passing the start date and end date
                         $dates = getDatesFromRange($acf, $to);
                         foreach($dates as $date){
                            $data['title'] = $value->post_title;
@@ -803,7 +807,7 @@ function getDatesFromRange($start, $end, $format = 'Y-m-d') {
                 ?>
                 <tr>
                     <td><?='<div class="dash-chef-img">'.wp_get_attachment_image($thumb).'</div>'?><?=ucwords($value->post_title)?></td>
-                    <td><a class="ajax-edit" data-toggle="modal" data-target="#myModal" data-post="<?=$value->ID?>" data-title="<?=$value->post_title?>" data-bio="<?=$value->post_content?>" data-years="<?=$years?>" data-certs="<?=$certs?>" data-cat="<?=$cats?>" data-date="<?=$acf?>" data-to="<?=$to?>" style="color:green;cursor:pointer">Edit</a> | 
+                    <td><a class="ajax-edit" data-toggle="modal" data-target="#myModal" data-post="<?=$value->ID?>" data-title="<?=$value->post_title?>" data-bio="<?=$value->post_content?>" data-years="<?=$years?>" data-certs="<?=$certs?>" data-cat="<?=$cats?>" data-date="<?=$acf?>" data-to="<?=$to?>" style="color:green;cursor:pointer">Edit</a> |
                     <a href="https://experienceshindig.com/dashboard/chefs/?destroy_post=<?=$value->ID?>" class="delete-post" onclick="return confirm('Are you sure you want to delete this chef?');" style="color:red;cursor:pointer">Delete</a>
                     </td>
                 </tr>
@@ -828,7 +832,7 @@ function getDatesFromRange($start, $end, $format = 'Y-m-d') {
 		             <div class="col-md-2">
 		                 <label>Chef Name *</label>
 		             </div>
-		             <div class="col-md-10"> 
+		             <div class="col-md-10">
 		                 <input type="text" placeholder="Chef Name" name="chef_name" class="form-control input_field" required/>
 		             </div>
 		         </div>
@@ -843,7 +847,7 @@ function getDatesFromRange($start, $end, $format = 'Y-m-d') {
 				 <div class="form-group">
 		             <div class="col-md-2">
 		                 <label for="images">Chef's Picture *</label>
-						 
+
 		             </div>
 		             <div class="col-md-10">
 		                <input type="file" name="chef_picture" id="chef_picture" size="50" required>
@@ -891,7 +895,7 @@ function getDatesFromRange($start, $end, $format = 'Y-m-d') {
 		echo $select_cats; ?>
 
 			</fieldset>
-						
+
 		             </div>
 		         </div>
 		          <div class="form-group">
@@ -899,17 +903,17 @@ function getDatesFromRange($start, $end, $format = 'Y-m-d') {
 		                 <input type="submit" class="submit" name="chef_submit" value="Submit"/>
 		             </div>
 		         </div>
-		         
+
 		     </form>
 		 </div>
 	</div>
 	<div id="tab-3" class="tab-content">
-		  <div id='calendar'></div>  
+		  <div id='calendar'></div>
 	</div>
 	<div id="tab-4" class="tab-content">
-		 <?php 
+		 <?php
 		// include get_home_path().'wp-content/plugins/dokan-pro/includes/modules/booking/templates/booking/resources/resources.php';
-		 ?>    
+		 ?>
 	</div>
 
 </div><!-- container -->
@@ -917,12 +921,12 @@ function getDatesFromRange($start, $end, $format = 'Y-m-d') {
 
 <div class="container">
 
-  
+
 
   <!-- Modal -->
   <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog">
-    
+
       <!-- Modal content-->
       <div class="modal-content">
         <div class="modal-header">
@@ -936,7 +940,7 @@ function getDatesFromRange($start, $end, $format = 'Y-m-d') {
 		             <div class="col-md-4">
 		                 <label>Chef Name *</label>
 		             </div>
-		             <div class="col-md-8"> 
+		             <div class="col-md-8">
 		                 <input type="text" placeholder="Chef Name" id="edit-title" name="chef_name_edit" class="form-control input_field" required/>
 		             </div>
 		         </div>
@@ -951,12 +955,12 @@ function getDatesFromRange($start, $end, $format = 'Y-m-d') {
 				 <div class="form-group">
 		             <div class="col-md-4">
 		                 <label>Chef's Picture</label>
-						 
+
 		             </div>
 		             <div class="col-md-8">
 						  <input type="file" name="chef_picture" id="chef_picture" size="50">
 						 <span class="helper-text">**Please upload a square image for best results.</span>
-						 
+
 		             </div>
 		         </div>
 		         <div class="form-group">
@@ -1008,7 +1012,7 @@ function getDatesFromRange($start, $end, $format = 'Y-m-d') {
 		                 <input type="submit" class="submit" name="chef_submit_edit" value="Submit" style="float: right;"/>
 		             </div>
 		         </div>
-		         
+
 		     </form>
 		 </div>
         </div>
@@ -1016,15 +1020,15 @@ function getDatesFromRange($start, $end, $format = 'Y-m-d') {
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
         </div>
       </div>
-      
+
     </div>
   </div>
-  
+
 </div>
 
       	<script>
 	jQuery(document).ready(function(){
-	
+
 	jQuery('ul.tabs li').click(function(){
 		var tab_id = jQuery(this).attr('data-tab');
 
@@ -1034,7 +1038,7 @@ function getDatesFromRange($start, $end, $format = 'Y-m-d') {
 		jQuery(this).addClass('current');
 		jQuery("#"+tab_id).addClass('current');
 	});
-	
+
 	jQuery('.ajax-edit').click(function(){
 		var post_id = jQuery(this).data('post');
 		var title = jQuery(this).data('title');
