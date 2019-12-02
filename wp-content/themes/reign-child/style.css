@@ -14,21 +14,23 @@ Tags: one-column, two-columns, right-sidebar, custom-background, custom-menu, fe
 */
 
 /* 02-12-2019 NN Start*/
-   
+  
+ .cus-cms2 span {
+    font-weight: bold;
+    margin-right: 5px;
+}  
 .cus-cms4 span {
     font-weight: bold;
     margin-right: 20px;
 
 }
-.cus-cms,
-.cus-cms2,.cus-cms3 {
-list-style-type: none;
-position: relative;
+.cus-cms,.cus-cms2,.cus-cms3 {
+	list-style-type: none;
+	position: relative;
 }
-.cus-cms div,
-.cus-cms2 div {
-padding-left: 30px;
-margin-bottom: 10px;
+.cus-cms div, .cus-cms2 div {
+	padding-left: 30px;
+	margin-bottom: 10px;
 }
 .cus-cms b ,.cus-cms strong {
     font-weight: 700;
@@ -36,10 +38,10 @@ margin-bottom: 10px;
     display: block;
 }
 .cus-cms b span ,.cus-cms strong span {
-margin-right: 15px;
+	margin-right: 15px;
 }
 .cus-cms2 li {
-margin-bottom: 20px;
+	margin-bottom: 20px;
 }
 /* 02-12-2019 NN End*/
 
