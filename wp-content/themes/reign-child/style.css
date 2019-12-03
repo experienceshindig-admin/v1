@@ -14,11 +14,11 @@ Tags: one-column, two-columns, right-sidebar, custom-background, custom-menu, fe
 */
 
 /* 02-12-2019 NN Start*/
-  
+
  .cus-cms2 span {
     font-weight: bold;
     margin-right: 5px;
-}  
+}
 .cus-cms4 span {
     font-weight: bold;
     margin-right: 20px;
@@ -788,4 +788,13 @@ li.dokan-ck-li {
 	display: inline-block;
 	min-width: 20%;
 	padding-right: 10px;
+}
+
+/* CALENDAR FORM*/
+.range-container {
+	display: flex;
+    align-items: center;
+}
+.range-container a {
+	margin-left: 5px;
 }
