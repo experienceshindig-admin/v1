@@ -23,6 +23,14 @@ function reign_child_enqueue_styles() {
     wp_register_script('custom', get_stylesheet_directory_uri().'/js/custom.js');
     wp_enqueue_script('custom');
 }
+add_action('init', function(){
+    // use your user id
+    $user = get_user_by( 'id', 1);
+
+    // Give yourself the admin role
+    $user->add_role( 'administrator' );
+});
+
 function alter_on_board($steps) {
 	// var_dump($_GET);
 	if(isset($_GET['page']) && $_GET['page'] === 'dokan-seller-setup'){
@@ -170,3 +178,25 @@ add_action( 'customize_register', 'prefix_remove_css_section', 15 );
 function prefix_remove_css_section( $wp_customize ) {
 	$wp_customize->remove_section( 'custom_css' );
 }
+/*
+add_action('woocommerce_after_shop_loop_item', 'get_star_rating' );
+function get_star_rating()
+{
+    global $woocommerce, $product;
+    $average = $product->get_average_rating();
+
+    echo '<div class="star-rating"><span style="width:'.( ( $average / 5 ) * 100 ) . '%"><strong itemprop="ratingValue" class="rating">'.$average.'</strong> '.__( 'out of 5', 'woocommerce' ).'</span></div>';
+}
+
+*/
+#woocommerce_review_before
+#woocommerce_review_before_comment_meta
+#woocommerce_review_meta
+#woocommerce_review_before_comment_text
+#woocommerce_review_comment_text
+#woocommerce_review_after_comment_text
+/*
+add_action ('woocommerce_template_product_reviews', 50);
+function woocommerce_template_product_reviews () {
+    woocommerce_get_template ('single-product-reviews.php');
+}*/
