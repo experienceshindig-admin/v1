@@ -23,8 +23,6 @@ function reign_child_enqueue_styles() {
     wp_register_script('custom', get_stylesheet_directory_uri().'/js/custom.js');
     wp_enqueue_script('custom');
 }
-
-
 function alter_on_board($steps) {
 	// var_dump($_GET);
 	if(isset($_GET['page']) && $_GET['page'] === 'dokan-seller-setup'){
