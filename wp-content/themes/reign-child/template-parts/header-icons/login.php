@@ -9,7 +9,7 @@
 
  	?>
  	<div class="rg-icon-wrap">
- 		<a href="<?php echo site_url(); ?>/my-account" class="test" title="Login">
+ 		<a href="<?php echo site_url(); ?>/my-account" title="Login">
  			<span class="cms-login">Sign up/Log In</span>
  		</a>
  	</div>
