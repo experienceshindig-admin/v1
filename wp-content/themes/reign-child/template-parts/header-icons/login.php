@@ -6,9 +6,14 @@
  		$login_page_id	 = $wbtm_reign_settings[ 'reign_pages' ][ 'reign_login_page' ];
  		$login_page_url	 = get_permalink( $login_page_id );
  	}
+
+
+	echo "test". $login_page_url;
+
  	?>
  	<div class="rg-icon-wrap">
- 		<a href="<?php echo $login_page_url; ?>" class="btn-login" title="Login">	<span class="cms-login">Sign up/Log In</span>
+ 		<a href="<?php echo $login_page_url; ?>" class="btn-login" title="Login">
+ 			<span class="cms-login">Sign up/Log In</span>
  		</a>
  	</div>
  	<?php
