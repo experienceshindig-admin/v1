@@ -26,15 +26,18 @@ function woocommerce_template_single_vendor_subtitle(){
 		$shindig_rating = get_post_meta( $id, '_wc_average_rating', true);
 		$shindig_rating_count = get_post_meta( $id, '_wc_review_count', true);
 		if ( $shindig_rating_count > 0 ) { ?>
-            <span class="sub-title-rating">
-					<?php
-					echo str_repeat("<img class='rating-star' src='https://experienceshindig.com/wp-content/uploads/2019/08/star-solid-orange.png' />", $shindig_rating);
-                    echo '<span class="rating-count">('.$shindig_rating_count.')</span>'; 
-					echo '<span class="read-reviews"><a href="#reviews">Read Reviews</a></span>';
-					?>
+
+                    <span class="sub-title-rating">
+                       <?php
+            /*#rbeef - duplicate star-rating
+             *            echo str_repeat("<img class='rating-star' src='https://experienceshindig.com/wp-content/uploads/2019/08/star-solid-orange.png' />", $shindig_rating);
+                        echo '<span class="rating-count">('.$shindig_rating_count.')</span>';
+                       echo '<span class="read-reviews"><a href="#reviews">Read Reviews</a></span>';*/
+                       ?>
                 </span>
+
             <?php
-}
+            }
         if ( !empty( $store_info['store_name'] ) ) { ?>
             <span class="sub-title">
                     <?php printf( 'By <a href="%s">%s</a>', dokan_get_store_url( $author->ID ), $store_info['store_name'] ); ?>
@@ -754,15 +757,16 @@ function woo_remove_product_tabs( $tabs ) {
 	unset( $tabs['more_seller_product'] );
     return $tabs;
 }
-
+/*#rbeef - this function is called in functions.php
 add_action( 'woocommerce_after_single_product_summary', 'my_plugin_comment_template', 9 );
 function my_plugin_comment_template( $comment_template ) {
      global $product;
 	$count = $product->get_review_count();
      if ($count>0){
-        woocommerce_get_template( 'single-product-reviews.php' );
+         woocommerce_get_template( 'single-product-reviews.php' );
 	 }
 }
+*/
 remove_action( 'woocommerce_after_single_product_summary', 'woocommerce_output_product_data_tabs', 10 );
 add_action( 'woocommerce_after_single_product', 'report_shindig', 10 );
 function report_shindig() {	
