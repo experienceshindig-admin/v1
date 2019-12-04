@@ -12,7 +12,7 @@
 
  	?>
  	<div class="rg-icon-wrap">
- 		<a href="<?php echo $login_page_url; ?>" class="btn-login" title="Login">
+ 		<a href="<?php echo site_url(); ?>/my-account" class="btn-login test" title="Login">
  			<span class="cms-login">Sign up/Log In</span>
  		</a>
  	</div>
