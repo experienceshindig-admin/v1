@@ -7,9 +7,6 @@
  		$login_page_url	 = get_permalink( $login_page_id );
  	}
 
-
-	echo "test". $login_page_url;
-
  	?>
  	<div class="rg-icon-wrap">
  		<a href="<?php echo site_url(); ?>/my-account" class="test" title="Login">
