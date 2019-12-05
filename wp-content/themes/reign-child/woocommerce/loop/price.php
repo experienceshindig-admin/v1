@@ -28,6 +28,6 @@ $person_multiplier = get_post_meta( $id, '_wc_booking_person_cost_multiplier', t
 <?php // check
 if( !empty( $person_multiplier )){ ?>
 	<span class="price"><b><?php echo '$'.$base_cost; ?></b> / Person</span>
-} else { ?>
+<?php } else { ?>
 	<span class="price"><b><?php echo '$'.$base_cost; ?></b></span>
 <?php } ?>
