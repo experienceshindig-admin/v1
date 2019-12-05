@@ -548,6 +548,7 @@ echo '<div class="clear"></div>';
 <div class="policy">
 <h2>How far out can I book? </h2>
 All bookings can be booked from 5 days to 12 months in the future. For last-minute bookings, contact our team at <a href="mailto:hello@experienceshindig.com">hello@experienceshindig.com</a> or the provider with the contact button above.
+</div>
 <div class="policy">
 <h2>Cancellations</h2>
 Cancelations before 3 weeks of the event, will receive a full refund. Cancellations within 7 days out may forfeit their deposit. Cancellations within 48 hours of the event may be subject to forfeiting the entire cost of the booking. If you are in this situation, please email us directly so we can better assist you (<a href="mailto:hello@experienceshindig.com">hello@experienceshindig.com</a>).
@@ -568,7 +569,7 @@ At the time of booking, we will hold 50% of the cost of the booking until the pr
   			<span>Oven</span>
 			</li>
 			<li>
-			<img src="<https://experienceshindig.com/wp-content/uploads/2019/08/sink.png" />
+			<img src="https://experienceshindig.com/wp-content/uploads/2019/08/sink.png" />
   			<span>Sink</span>
 			</li>
 			<li>
