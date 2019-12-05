@@ -450,10 +450,9 @@ h1.entry-title {
 	display:inline-block;
 }
 
-.shindig-venue_requirements {
-	list-style:none;
-	display:flex;
-	justify-content:space-between;
+ul.shindig-venue_requirements li {
+    display: inline-block;
+    margin-right: 25px;
 }
 .clear {
 	display:block;
@@ -493,6 +492,14 @@ ul.menu-items{
 	list-style:none;
 	margin-left:10px;
 }
+.menu-items li {
+    margin-bottom: 7px;
+}
+.menu-items li span {
+font-size: 12px;
+    font-style: italic;
+    color: #666;
+}
 .menu-item-title{
 	font-weight:600;
 	margin-bottom:0;
@@ -527,6 +534,7 @@ h2.course {
 }
 .policy {
 	margin-left:30px;
+	margin-bottom:15px;
 }
 .woocommerce-product-details__short-description, .add-info {
 	padding-bottom: 30px;
@@ -700,47 +708,7 @@ body.dokan-store .figlio {
 #cat-drop-stack {
 	display: inline-block;
 }
-.dokan-share-btn:before{
-	font-family: "fontawesome";
-	content: "\f1e0";
-	font-size:13px;
-	color:#f05025;
-	line-height:15px;
-}
-.dokan-follow-store-button, .dokan-share-btn, .dokan-store-support-btn {
-	font-size:0;
-	background:#fff !important;
-	color:#f05025;
-	margin:0;
-	padding:15px;
-}
-.dokan-follow-store-button:hover, .dokan-share-btn:hover, .dokan-store-support-btn:hover {
-	background:#fff !important;
-}
-.dokan-single-store .dokan-store-tabs.dokan-store-tabs ul li.dokan-store-support-btn-wrap button.dokan-store-support-btn:before{
-	color:#f05025;
-	position:relative;
-	line-height:15px;
-}
-.dokan-single-store .dokan-store-tabs.dokan-store-tabs ul li.dokan-store-support-btn-wrap button.dokan-store-support-btn {
-	padding:15px;
-}
-button[data-status=""] .dokan-follow-store-button-label-current:before {
-	font-family: "fontawesome";
-	content: "\f004";
-	font-size:13px;
-	line-height:15px;
- -webkit-text-stroke: 2px #f05025;
- -webkit-text-fill-color: transparent;
-}
-button[data-status="following"] .dokan-follow-store-button-label-current:before,
-.dokan-follow-store-button-label-unfollow:before {
-	font-family: "fontawesome";
-	content: "\f004";
-	font-size:13px;
-	color:#fff;
-	line-height:15px;
-}
+
 .dokan-right{
 	margin:0 !important;
 	padding:0 !important;
