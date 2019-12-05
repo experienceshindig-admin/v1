@@ -324,7 +324,7 @@ if ( $savory_query->have_posts() ) {
 		
         echo '<li>';
 		echo '<a class="venobox" data-vbtype="inline" href="#'.$post_slug.'"><h3 class="menu-item-title">' . get_the_title() . '</h3></a>';
-		echo get_the_content();
+
 		echo '<ul class="shindig-ul">';
 		foreach( $s_diets as $s_diet ){
 		?>
@@ -354,7 +354,7 @@ if( $menu_img ) {
 <div class="wp-block-column menu_item">
 <h1><?php the_title(); ?></h1>
 <h2 class="course"><?php the_field('course_type'); ?></h2>
-<?php echo get_the_content();
+<?php 
 		echo '<ul class="shindig-ul">';
 		foreach( $s_diets as $s_diet ){
 		?>
@@ -389,7 +389,7 @@ if ( $drinks_query->have_posts() ) {
     	$post_slug = get_post_field( 'post_name' );
         echo '<li>';
 		echo '<a class="venobox" data-vbtype="inline" href="#'.$post_slug.'"><h3 class="menu-item-title">' . get_the_title(). '</h3></a>';
-		echo get_the_content();
+
 		echo '<ul class="shindig-ul">';
 		foreach( $s_diets as $s_diet ){
 		?>
@@ -418,7 +418,7 @@ if( $menu_img ) {
 <div class="wp-block-column menu_item">
 <h1><?php the_title(); ?></h1>
 <h2 class="course"><?php the_field('course_type'); ?></h2>
-<?php echo get_the_content();
+<?php 
 		echo '<ul class="shindig-ul">';
 		foreach( $s_diets as $s_diet ){
 		?>
@@ -451,7 +451,7 @@ if ( $sweet_query->have_posts() ) {
     	$post_slug = get_post_field( 'post_name' );
         echo '<li>';
 		echo '<a class="venobox" data-vbtype="inline" href="#'.$post_slug.'"><h3 class="menu-item-title">' . get_the_title() . '</h3></a>';
-		echo get_the_content();
+
 		echo '<ul class="shindig-ul">';
 		foreach( $s_diets as $s_diet ){
 		?>
@@ -481,7 +481,7 @@ if( $menu_img ) {
 <div class="wp-block-column menu_item">
 <h1><?php the_title(); ?></h1>
 <h2 class="course"><?php the_field('course_type'); ?></h2>
-<?php echo get_the_content();
+<?php 
 		echo '<ul class="shindig-ul">';
 		foreach( $s_diets as $s_diet ){
 		?>
