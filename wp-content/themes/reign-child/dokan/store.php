@@ -324,6 +324,8 @@ get_header( 'shop' );
 			
 		}
 
+
+        ?>
 <hr />
 			<span class="report-shindig" onclick="reportForm()">Report Problem with Provider</span>
 			<div style="display:none;" id="reportForm">';
