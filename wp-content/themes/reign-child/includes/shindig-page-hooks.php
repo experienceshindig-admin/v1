@@ -54,20 +54,26 @@ function woocommerce_template_single_options($post){
 	$alcohol_pairings = get_field('alcohol_pairings');
 	$min_person = get_post_meta( $id, '_wc_booking_min_persons_group', true);
 	$max_person = get_post_meta( $id, '_wc_booking_max_persons_group', true);
+	$person_multiplier = get_post_meta( $id, '_wc_booking_person_cost_multiplier', true);
 	$base_cost =  get_post_meta( $id, '_wc_booking_cost', true);
 	$cuisine = wc_get_product_category_list( get_the_id() );
 	
-if( $specialty_diets||$alcohol_pairings||$min_person||$max_person||$base_cost||$cuisine ):
+if( $specialty_diets||$alcohol_pairings||$min_person||$max_person||$base_cost||$person_multiplier||$cuisine ):
 	echo '<div class="shindig-options">';
 endif; 
 	
 // check
-if( !empty($base_cost )): ?>
+if( !empty( $person_multiplier )){ ?>
 	<div class="shindig-option">
 	<div class="shindig-option-img"><?php echo '<span class="cost-per-person">$</span>'; ?></div>
 	<div class="shindig-option-text"><?php echo 'Starting at $'.$base_cost.'/Person'; ?></div>
 	</div>
-<?php endif;
+<?php } else { ?>
+	<div class="shindig-option">
+	<div class="shindig-option-img"><?php echo '<span class="cost-per-person">$</span>'; ?></div>
+	<div class="shindig-option-text"><?php echo 'Starting at $'.$base_cost; ?></div>
+	</div>
+<?php }
 	
 // check
 if( $min_person||$max_person ): ?>
@@ -161,7 +167,7 @@ if( $alcohol_pairings ): ?>
 	</ul>
 	</div></div>
 	<div class="shindig-option">
-	<div class="shindig-option-img"><img src="https://experienceshindig.com/wp-content/uploads/2019/08/CleanDishes.pngg" /></div>
+	<div class="shindig-option-img"><img src="https://experienceshindig.com/wp-content/uploads/2019/08/CleanDishes.png" /></div>
 	<div class="shindig-option-text">
 	<ul class="shindig-ul">
 
@@ -174,7 +180,7 @@ if( $alcohol_pairings ): ?>
 	</ul>
 	</div></div>
 <?php
-if( $specialty_diets||$alcohol_parings||$min_person||$max_person||$base_cost||$cuisine ):
+if( $specialty_diets||$alcohol_parings||$min_person||$max_person||$base_cost||$person_multiplier||$cuisine ):
 	echo '</div>';
 endif; 
 	}
@@ -193,12 +199,11 @@ function woocommerce_template_single_wrap_end_add_to_cart(){
         $author  = get_user_by( 'id', $seller );
         $store_info = dokan_get_store_info( $author->ID );
 if ( !empty( $store_info['store_name'] ) ) { ?>
-            
+            <span class="sub-title">Not finding the date you want? Contact <a class="venobox" data-vbtype="inline" href="#contactvendor"><?=$store_info['store_name']?></a></span>
+<div id="contactvendor" style="display:none;">
+	<?php echo do_shortcode('[weforms id="9372"]'); ?>
+</div>
             <?php }
-echo '<span class="sub-title">Not finding the date you want?<br />Contact <span onclick="questionForm()">'.$store_info['store_name'].'</span>';
-echo '<div style="display:none;" id="questionForm">';
-	echo do_shortcode('[weforms id="9372"]');
-echo '</div>';
 }
 
 
@@ -219,8 +224,8 @@ function woocommerce_template_single_vendor_info() {
 		$vendor_rating = get_post_meta( $id, ' ', true);
 		$vendor_rating_count = get_post_meta( $id, ' ', true);
 		
-        if ( !empty( $store_info['store_name'] ) ) { 
-      		echo '<h1>About '.$store_info['vendor_biography'].'</h1>';
+        if ( $store_info['vendor_biography']||$store_info['years_of_experience']||$store_info['response_time']||$store_info['certificates'] ) { 
+      		echo '<h1>About '.$store_info['store_name'].'</h1>';
 		 }
 			echo '<div class="shindig-vendor">';
 			echo '<div class="vendor-details">';
@@ -542,20 +547,18 @@ echo '<div class="clear"></div>';
  
 <div class="policy">
 <h2>How far out can I book? </h2>
-<div class="more">All bookings can be booked from 5 days to 12 months in the future. For last-minute bookings, contact our team at <a href="hello@experienceshindig.com">hello@experienceshindig.com</a> or the provider with the contact button above. </div>
-</div>
+All bookings can be booked from 5 days to 12 months in the future. For last-minute bookings, contact our team at <a href="mailto:hello@experienceshindig.com">hello@experienceshindig.com</a> or the provider with the contact button above.
 <div class="policy">
 <h2>Cancellations</h2>
-<div class="more">Cancelations before 3 weeks of the event, will receive a full refund. Cancellations within 7 days out may forfeit their deposit. Cancellations within 48 hours of the event may be subject to forfeiting the entire cost of the booking. If you are in this situation, please email us directly so we can better assist you (<a href="hello@experienceshindig.com">hello@experienceshindig.com</a>).
-</div>
+Cancelations before 3 weeks of the event, will receive a full refund. Cancellations within 7 days out may forfeit their deposit. Cancellations within 48 hours of the event may be subject to forfeiting the entire cost of the booking. If you are in this situation, please email us directly so we can better assist you (<a href="mailto:hello@experienceshindig.com">hello@experienceshindig.com</a>).
 </div>
 <div class="policy">
 <h2>Headcount Lock-in</h2>
-<div class="more">Prices are generally determined per person. If you need to change the number of people attending, please do so prior to 7 days of the event by emailing us at <a href="hello@experienceshindig.com">hello@experienceshindig.com</a> and we can make the appropriate changes to the reservation. </div>
+Prices are generally determined per person. If you need to change the number of people attending, please do so prior to 7 days of the event by emailing us at <a href="mailto:hello@experienceshindig.com">hello@experienceshindig.com</a> and we can make the appropriate changes to the reservation. 
 </div>
 <div class="policy">
 <h2>Deposit &amp; Payment</h2>
-<div class="more">At the time of booking, we will hold 50% of the cost of the booking until the provider confirms the reservation. The remaining balance will be collected on the morning of the event. Gratuity is not required. If you feel so inclined, you are welcome to give cash directly to the provider at the event. By booking, you are agreeing to our complete <a href="http://www.experienceshindig.com/terms">terms of use</a> and <a href="http://www.experienceshindig.com/policy">privacy policy</a>.</div>
+At the time of booking, we will hold 50% of the cost of the booking until the provider confirms the reservation. The remaining balance will be collected on the morning of the event. Gratuity is not required. If you feel so inclined, you are welcome to give cash directly to the provider at the event. By booking, you are agreeing to our complete <a href="http://www.experienceshindig.com/terms">terms of use</a> and <a href="http://www.experienceshindig.com/policy">privacy policy</a>.
 </div>
 
 	<div class="policy"><h2>Venue Requirements</h2>
@@ -597,7 +600,7 @@ function my_plugin_comment_template( $comment_template ) {
 	 }
 }
 */
-/*remove tabs remove_action( 'woocommerce_after_single_product_summary', 'woocommerce_output_product_data_tabs', 10 ); */
+remove_action( 'woocommerce_after_single_product_summary', 'woocommerce_output_product_data_tabs', 10 ); 
 add_action( 'woocommerce_after_single_product', 'report_shindig', 10 );
 function report_shindig() {	
 	echo '<hr />';
@@ -610,14 +613,6 @@ echo '</div>';
 <script>
 function reportForm() {
   var x = document.getElementById("reportForm");
-  if (x.style.display === "none") {
-    x.style.display = "block";
-  } else {
-    x.style.display = "none";
-  }
-}
-function questionForm() {
-  var x = document.getElementById("questionForm");
   if (x.style.display === "none") {
     x.style.display = "block";
   } else {
