@@ -323,54 +323,7 @@ get_header( 'shop' );
 			woocommerce_product_loop_end();
 			
 		}
-if( !empty($store_info['terms_conditions'] || $store_info['cancellation'] || $store_info['communication'] || $store_info['deposit_guests'] || $store_info['venue_requirements'] || $store_info['tips_tricks'] || $store_info['alcohol_policy'])){
-		echo '<hr />';
-		echo '<h3>Additional Information</h3>';
-			if( !empty($store_info['terms_conditions'] )) { 
-						echo '<div class="policy">';
-						echo '<h2>Terms &amp; Conditions</h2>';
-						echo '<p>' . $store_info['terms_conditions'] . '</p>';
-						echo '</div>';	
-			}
-			if( !empty($store_info['cancellation'] )) { 
-						echo '<div class="policy">';
-						echo '<h2>Cancellation</h2>';
-						echo '<p>' . $store_info['cancellation'] . '</p>';
-						echo '</div>';	
-			}
-			if( !empty($store_info['communication'] )) { 
-						echo '<div class="policy">';
-						echo '<h2>Communication</h2>';
-						echo '<p>' . $store_info['communication'] . '</p>';
-						echo '</div>';	
-			}
-			if( !empty($store_info['deposit_guests'] )) { 
-						echo '<div class="policy">';
-						echo '<h2>Deposit &amp; Guest List</h2>';
-						echo '<p>' . $store_info['deposit_guests'] . '</p>';
-						echo '</div>';	
-			}
-			if( !empty($store_info['venue_requirements'] )) { 
-						echo '<div class="policy">';
-						echo '<h2>Venue Requirements</h2>';
-						echo '<p>' . $store_info['venue_requirements'] . '</p>';
-						echo '</div>';	
-			}
-			if( !empty($store_info['tips_tricks'] )) { 
-						echo '<div class="policy">';
-						echo '<h2>Tips &amp; Tricks</h2>';
-						echo '<p>' . $store_info['tips_tricks'] . '</p>';
-						echo '</div>';	
-			}
-			if( !empty($store_info['alcohol_policy'] )) { 
-						echo '<div class="policy">';
-						echo '<h2>Alcohol Policy</h2>';
-						echo '<p>' . $store_info['alcohol_policy'] . '</p>';
-						echo '</div>';	
-			}
-}
 
-        ?>
 <hr />
 			<span class="report-shindig" onclick="reportForm()">Report Problem with Provider</span>
 			<div style="display:none;" id="reportForm">';
