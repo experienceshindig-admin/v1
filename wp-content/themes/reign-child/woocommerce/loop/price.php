@@ -22,10 +22,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 global $product;
 $id = get_the_ID();
 $base_cost =  get_post_meta( $id, '_wc_booking_cost', true);
+$person_multiplier = get_post_meta( $id, '_wc_booking_person_cost_multiplier', true);
 ?>
 
 <?php // check
-if( !empty($base_cost )): ?>
+if( !empty( $person_multiplier )){ ?>
 	<span class="price"><b><?php echo '$'.$base_cost; ?></b> / Person</span>
-	
-<?php endif; ?>
+} else { ?>
+	<span class="price"><b><?php echo '$'.$base_cost; ?></b></span>
+<?php } ?>
