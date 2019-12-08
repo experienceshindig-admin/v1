@@ -9,12 +9,20 @@
  *  @package dokan
  */
 
+
+/**
+*  This page will pull blocked dates stored in an ACF repeater with the current user.
+*  It will then allow those dates to be removed or have a new row added. On save this
+*  will be saved with the user, and then propagated out to each of the user's shindigs
+*/
+
 ?>
 
 <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"/>
 
 <div class="dokan-dashboard-wrap">
 		<?php
@@ -70,47 +78,46 @@
 	 $alert = '';
 
 	 if($_POST){
-	 	// Format dates into ranges
 
 	 	// Delete all existing rows on author
+	 	delete_field( 'unavailable_dates', wp_get_current_user() );
 
-	 	// Save ACF repeater field on author
+	 	foreach ($_POST['blocked_dates'] as $a_block) {
+	 		if(!$a_block['to'] || strtotime($a_block['to']) == false) {
+	 			continue;
+	 		}
+	 		if(!$a_block['from'] || strtotime($a_block['from']) == false) {
+	 			continue;
+	 		}
+	 		// Save ACF repeater field on author
+	 		$saved = add_row( 'unavailable_dates', $a_block, wp_get_current_user() );
+	 		// Prep for saving into product
+	 		$availability[] = array(
+	 			'type' => 'custom',
+	 			'bookable' => 'no',
+	 			'priority' => 10,
+	 			'to' => date('Y-m-d', strtotime(wc_clean($a_block['to']))),
+	 			'from' => date('Y-m-d', strtotime(wc_clean($a_block['from']))),
+	 		);
+	 	}
 
 	 	// Get all shindigs
+	 	$args = array(
+	     'posts_per_page' => -1,
+	     'post_type'      => 'product',
+	     'author' => $user_id
+	  );
+    $shindigs = get_posts( $args );
 
-	 	// Delete all existing blocks on shindigs
+	 	// Replace all existing blocks on shindigs
+	 	foreach ($shindigs as $shindig) {
+    	$updated = update_post_meta( $shindig->ID, '_wc_booking_availability', $availability );
+	 	}
 
-	 	// Add new blocks from posted data
-
-
-					 $data = array(
-								'post_title'  => $_POST['chef_name'],
-								'post_content'  => $_POST['chef_bio'],
-								'post_type'  => 'chefs',
-								'post_category' =>   $post_cat,
-								'post_status'  => 'publish'
-								);
-
-					 $post_id = wp_insert_post($data);
-					 update_field( 'availability', $_POST['chef_date_from'], $post_id );
-					 update_field( 'to', $_POST['chef_date_to'], $post_id );
-
-					 $message = 'Chef has been inserted';
-					 $alert = 'alert-success';
+		$message = 'Calendar has been updated';
+		$alert = 'alert-success';
 	 }
-		 if($_GET && isset($_GET['destroy_post'])){
-				wp_delete_post($_GET['destroy_post']);
-					$message = 'Chef has been deleted';
-					$alert = 'alert-success';
-		}
-	 //GET POST DATA
-	 $args = array(
-			 'posts_per_page' => -1 ,
-			 'post_type'      => 'chefs',
-			 'author' => $user_id
-			 );
-		$chef_data = get_posts( $args );
-		//GET POST DATA
+
 	 ?>
 
 	<div id="tab-1" class="tab-content current">
@@ -119,7 +126,6 @@
 			if($_POST){
 			?>
 			<div class="alert <?=$alert?> alert-dismissible" style="margin-top: 5px">
-					<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
 					<strong><?=$message?></strong>
 				</div>
 				<?php
@@ -145,26 +151,27 @@
 				 			<h4>Existing Blocked Dates</h4>
 				 			<?php
 				 			foreach ($sortable_dates as $date_from => $date_to) {
-				 				$i++;
 				 				$from_formatted = date("m/d/Y", strtotime($date_from));
 				 				$to_formatted = date("m/d/Y", strtotime($date_to));
 				 				?>
-					 			<div class='dokan-form-group range-container'>
-					 				<input type='hidden' name='wc_booking_availability_dates[<?=$i?>][from]' class='from from-<?=$i?>' value='<?php echo $date_from ?>' />
-					 				<input type='hidden' name='wc_booking_availability_dates[<?=$i?>][to]' class='to to-<?=$i?>' value='<?php echo $date_to ?>' />
+					 			<div class='dokan-form-group range-container range-container-<?=$i?>'>
+					 				<input type='hiddenx' name='blocked_dates[<?=$i?>][from]' class='from from-<?=$i?>' value='<?php echo $date_from ?>' />
+					 				<input type='hiddenx' name='blocked_dates[<?=$i?>][to]' class='to to-<?=$i?>' value='<?php echo $date_to ?>' />
 					 				<input style='display:inline;' type='text' class='dokan-form-control daterange' data-i="<?=$i?>" value='<?php echo "{$from_formatted} - {$to_formatted}"?> ' />
-					 				<a href='#' title='Remove'>X</a>
+					 				<a href='#' title='Remove' class='remove_date' data-i="<?=$i?>">X</a>
 					 			</div>
-				 			<?php } ?>
+					 			<?php
+				 					$i++;
+				 			} ?>
 				 	<?php } ?>
 
 					<?php } ?>
 						  <div class="">
 						 		<label>Add new blocked dates</label>
 						 		 <div class='dokan-form-group range-container'>
-						 				<input type='hidden' name='wc_booking_availability_dates[<?=$i?>][from]' />
-						 				<input type='hidden' name='wc_booking_availability_dates[<?=$i?>][to]' />
-						 				<input type='text' class="dokan-form-control daterange">
+						 				<input type='hiddenx' name='blocked_dates[<?=$i?>][from]' />
+						 				<input type='hiddenx' name='blocked_dates[<?=$i?>][to]' />
+						 				<input type='text' class="dokan-form-control daterange" data-i="<?=$i?>">
 						 		 </div>
 						  </div>
 						  <input type='submit' value='Save' />
@@ -175,14 +182,32 @@
 </div><!-- container -->
 
 <script>
-					$('.daterange').daterangepicker({
-					    "autoApply": true,
-					    "parentEl": "body",
-					    "minDate": moment(),
-					    "opens": "left"
-					}, function(start, end, label) {
-					  console.log('New date range selected: ' + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD') + ' (predefined range: ' + label + ')');
-					});
+	// Iniitalize date range picker
+	$('.daterange').daterangepicker({
+	    "autoApply": true,
+	    "parentEl": "body",
+	    "minDate": moment(),
+	    "opens": "left"
+	}, function(start, end, label) {
+	  // console.log('New date range selected: ' + start.format('YYYYMMDD') + ' to ' + end.format('YYYYMMDD') + ' (predefined range: ' + label + ')');
+	});
+
+	// On applying a range, populate the separate hidden fields
+	// Using the data-i attribute to target the correct inputs
+	$('.daterange').on('apply.daterangepicker', function(ev, picker) {
+		var i = $(this).data('i');
+		$('input[name="blocked_dates['+i+'][from]"]').val(picker.startDate.format('YYYYMMDD'));
+		$('input[name="blocked_dates['+i+'][to]"]').val(picker.endDate.format('YYYYMMDD'));
+	});
+
+	// Deleting just removes from the DOM
+	$('.remove_date').click(function(e) {
+		e.preventDefault();
+		var i = $(this).data('i');
+		$('.range-container-'+i).fadeOut(300, function() {
+			$(this).remove();
+		});
+	});
 
 </script>
 
