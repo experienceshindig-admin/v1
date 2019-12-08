@@ -63,6 +63,7 @@ add_filter( 'dokan_query_var_filter', 'dokan_load_document_menu' );
 function dokan_load_document_menu( $query_vars ) {
     $query_vars['menus'] = 'menus';
 	$query_vars['chefs'] = 'chefs';
+	$query_vars['calendar'] = 'calendar';
     return $query_vars;
 
 }
@@ -80,6 +81,12 @@ function dokan_add_menus_menu( $urls ) {
         'url'   => dokan_get_navigation_url( 'chefs' ),
         'pos'   => 51
     );
+	$urls['calendar'] = array(
+        'title' => __( 'Calendar', 'dokan'),
+        'icon'  => '<i class="fa fa-calendar"></i>',
+        'url'   => dokan_get_navigation_url( 'calendar' ),
+        'pos'   => 51
+    );
 
     return $urls;
 }
@@ -92,7 +99,10 @@ function dokan_load_template( $query_vars ) {
 	if ( isset( $query_vars['chefs'] ) ) {
         require_once dirname( __FILE__ ). '/vendor-chefs.php';
         exit();
-
+    }
+	if ( isset( $query_vars['calendar'] ) ) {
+        require_once dirname( __FILE__ ). '/vendor-calendar.php';
+        exit();
     }
 }
 /**
@@ -168,7 +178,7 @@ add_action( 'customize_register', 'prefix_remove_css_section', 15 );
  * @param $wp_customize WP_Customize_Manager
  */
 function prefix_remove_css_section( $wp_customize ) {
-	$wp_customize->remove_section( 'custom_css' );
+	// $wp_customize->remove_section( 'custom_css' );
 }
 
 add_filter( 'woocommerce_product_tabs', '_remove_reviews_tab', 98 );

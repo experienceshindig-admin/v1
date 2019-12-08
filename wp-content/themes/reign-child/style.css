@@ -726,3 +726,12 @@ li.dokan-ck-li {
 	min-width: 20%;
 	padding-right: 10px;
 }
+
+/* CALENDAR FORM*/
+.range-container {
+	display: flex;
+    align-items: center;
+}
+.range-container a {
+	margin-left: 5px;
+}
