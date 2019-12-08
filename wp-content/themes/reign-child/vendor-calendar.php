@@ -155,8 +155,8 @@
 				 				$to_formatted = date("m/d/Y", strtotime($date_to));
 				 				?>
 					 			<div class='dokan-form-group range-container range-container-<?=$i?>'>
-					 				<input type='hiddenx' name='blocked_dates[<?=$i?>][from]' class='from from-<?=$i?>' value='<?php echo $date_from ?>' />
-					 				<input type='hiddenx' name='blocked_dates[<?=$i?>][to]' class='to to-<?=$i?>' value='<?php echo $date_to ?>' />
+					 				<input type='hidden' name='blocked_dates[<?=$i?>][from]' class='from from-<?=$i?>' value='<?php echo $date_from ?>' />
+					 				<input type='hidden' name='blocked_dates[<?=$i?>][to]' class='to to-<?=$i?>' value='<?php echo $date_to ?>' />
 					 				<input style='display:inline;' type='text' class='dokan-form-control daterange' data-i="<?=$i?>" value='<?php echo "{$from_formatted} - {$to_formatted}"?> ' />
 					 				<a href='#' title='Remove' class='remove_date' data-i="<?=$i?>">X</a>
 					 			</div>
@@ -169,8 +169,8 @@
 						  <div class="">
 						 		<label>Add new blocked dates</label>
 						 		 <div class='dokan-form-group range-container'>
-						 				<input type='hiddenx' name='blocked_dates[<?=$i?>][from]' />
-						 				<input type='hiddenx' name='blocked_dates[<?=$i?>][to]' />
+						 				<input type='hidden' name='blocked_dates[<?=$i?>][from]' />
+						 				<input type='hidden' name='blocked_dates[<?=$i?>][to]' />
 						 				<input type='text' class="dokan-form-control daterange" data-i="<?=$i?>">
 						 		 </div>
 						  </div>
