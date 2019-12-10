@@ -15,4 +15,13 @@ jQuery(function($){
 	$('.dokan-dashboard .dokan-dashboard-content.dokan-dashboard-content article.dashboard-content-area .dashboard-widget.products .widget-title').html('<i class="fa fa-calendar" aria-hidden="true"></i> Shindigs<span class="pull-right"><a href="https://experienceshindig.com/dashboard/new-product/">+ Add New Shindig</a></span>');
 	
 	$('.wc-bookings-booking-form-button').text('Request Booking');
+
+    $('#toggle-mobile-menu').click(function () {
+        var parentBlock = $(this).parents('.dokan-dash-sidebar');
+        if ($('#toggle-mobile-menu').is(':checked')){
+            parentBlock.addClass('dokan-dash-sidebar__rb_style');
+        } else {
+            parentBlock.removeClass('dokan-dash-sidebar__rb_style');
+        }
+    });
 })

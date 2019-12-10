@@ -735,3 +735,9 @@ li.dokan-ck-li {
 .range-container a {
 	margin-left: 5px;
 }
+
+@media (max-width: 960px) {
+	.content-wrapper .rg-post-meta-info-wrapper {
+		margin-top: 25px;
+	}
+}
