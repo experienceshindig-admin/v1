@@ -75,12 +75,13 @@ function dokan_add_menus_menu( $urls ) {
         'url'   => dokan_get_navigation_url( 'menus' ),
         'pos'   => 51
     );
+/*  Not using Per-Chef functionality right now, currently broken
 	$urls['chefs'] = array(
         'title' => __( 'Our Chefs', 'dokan'),
         'icon'  => '<i class="fa fa-users"></i>',
         'url'   => dokan_get_navigation_url( 'chefs' ),
         'pos'   => 51
-    );
+    );*/
 	$urls['calendar'] = array(
         'title' => __( 'Calendar', 'dokan'),
         'icon'  => '<i class="fa fa-calendar"></i>',
