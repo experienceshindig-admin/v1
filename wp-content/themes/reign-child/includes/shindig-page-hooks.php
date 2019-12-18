@@ -264,7 +264,7 @@ if( $menus ){ ?>
 	<ul class="menu">
 	<?php
 					
-$savory_query = new WP_Query(array(
+$app_query = new WP_Query(array(
 	'post_type'      	=> 'menu_item',
 	'posts_per_page'	=> -1,
 	'post__in'			=> $menus,
@@ -273,12 +273,12 @@ $savory_query = new WP_Query(array(
 	'meta_query' => array(
        array(
            'key' => 'course_type',
-           'value' => 'Savory',
+           'value' => 'Appetizer',
            'compare' => '=',
        )
    )
 ));
-$drinks_query = new WP_Query(array(
+$mc_query = new WP_Query(array(
 	'post_type'      	=> 'menu_item',
 	'posts_per_page'	=> -1,
 	'post__in'			=> $menus,
@@ -287,12 +287,12 @@ $drinks_query = new WP_Query(array(
 	'meta_query' => array(
        array(
            'key' => 'course_type',
-           'value' => 'Drinks',
+           'value' => 'Main',
            'compare' => '=',
        )
    )
 ));
-$sweet_query = new WP_Query(array(
+$dessert_query = new WP_Query(array(
 	'post_type'      	=> 'menu_item',
 	'posts_per_page'	=> -1,
 	'post__in'			=> $menus,
@@ -301,7 +301,7 @@ $sweet_query = new WP_Query(array(
 	'meta_query' => array(
        array(
            'key' => 'course_type',
-           'value' => 'Sweet',
+           'value' => 'Dessert',
            'compare' => '=',
        )
    )
@@ -314,13 +314,13 @@ function exclude_menu_img_class_from_lazy_load( $classes ) {
    return $classes;
 }											
 											
-// The Savory Loop
-if ( $savory_query->have_posts() ) {
+// The App Loop
+if ( $app_query->have_posts() ) {
 	echo '<li>';
-	echo '<h2 class="course">Savory</h2>';
+	echo '<h2 class="course">Appetizer</h2>';
     echo '<ul class="menu-items">';
-    while ( $savory_query->have_posts() ) {
-        $savory_query->the_post();
+    while ( $app_query->have_posts() ) {
+        $app_query->the_post();
 		$s_diets = get_field('s_diets');
     	$post_slug = get_post_field( 'post_name' );
 		
@@ -378,14 +378,14 @@ if( $menu_img ) {
 }
 /* Restore original Post Data */
 wp_reset_postdata(); 
-	// The Drinks Loop
-if ( $drinks_query->have_posts() ) {
+	// The main Loop
+if ( $mc_query->have_posts() ) {
 		
 	echo '<li>';
-	echo '<h2 class="course">Drinks</h2>';
+	echo '<h2 class="course">Main Course</h2>';
     echo '<ul class="menu-items">';
-    while ( $drinks_query->have_posts() ) {
-        $drinks_query->the_post();
+    while ( $mc_query->have_posts() ) {
+        $mc_query->the_post();
 		$post_id = get_the_id();
 		$s_diets = get_field('s_diets');
     	$post_slug = get_post_field( 'post_name' );
@@ -442,13 +442,13 @@ if( $menu_img ) {
 }
 /* Restore original Post Data */
 wp_reset_postdata(); 
-	// The Sweet Loop
-if ( $sweet_query->have_posts() ) {
+	// The Dessert Loop
+if ( $dessert_query->have_posts() ) {
 	echo '<li>';
-	echo '<h2 class="course">Sweet</h2>';
+	echo '<h2 class="course">Desserts</h2>';
     echo '<ul class="menu-items">';
-    while ( $sweet_query->have_posts() ) {
-        $sweet_query->the_post();
+    while ( $dessert_query->have_posts() ) {
+        $dessert_query->the_post();
 		$s_diets = get_field('s_diets');
     	$post_slug = get_post_field( 'post_name' );
         echo '<li>';
