@@ -264,7 +264,7 @@ if( $menus ){ ?>
 	<ul class="menu">
 	<?php
 					
-$savory_query = new WP_Query(array(
+$appetizer_query = new WP_Query(array(
 	'post_type'      	=> 'menu_item',
 	'posts_per_page'	=> -1,
 	'post__in'			=> $menus,
@@ -273,12 +273,12 @@ $savory_query = new WP_Query(array(
 	'meta_query' => array(
        array(
            'key' => 'course_type',
-           'value' => 'Savory',
+           'value' => 'Appetizer',
            'compare' => '=',
        )
    )
 ));
-$drinks_query = new WP_Query(array(
+$main_query = new WP_Query(array(
 	'post_type'      	=> 'menu_item',
 	'posts_per_page'	=> -1,
 	'post__in'			=> $menus,
@@ -287,12 +287,12 @@ $drinks_query = new WP_Query(array(
 	'meta_query' => array(
        array(
            'key' => 'course_type',
-           'value' => 'Drinks',
+           'value' => 'Main',
            'compare' => '=',
        )
    )
 ));
-$sweet_query = new WP_Query(array(
+$dessert_query = new WP_Query(array(
 	'post_type'      	=> 'menu_item',
 	'posts_per_page'	=> -1,
 	'post__in'			=> $menus,
@@ -301,7 +301,7 @@ $sweet_query = new WP_Query(array(
 	'meta_query' => array(
        array(
            'key' => 'course_type',
-           'value' => 'Sweet',
+           'value' => 'Dessert',
            'compare' => '=',
        )
    )
@@ -314,58 +314,17 @@ function exclude_menu_img_class_from_lazy_load( $classes ) {
    return $classes;
 }											
 											
-// The Savory Loop
-if ( $savory_query->have_posts() ) {
+// The appetizer Loop
+if ( $appetizer_query->have_posts() ) {
 	echo '<li>';
-	echo '<h2 class="course">Savory</h2>';
+	echo '<h2 class="course">Appetizer</h2>';
     echo '<ul class="menu-items">';
-    while ( $savory_query->have_posts() ) {
-        $savory_query->the_post();
-		$s_diets = get_field('s_diets');
+    while ( $appetizer_query->have_posts() ) {
+        $appetizer_query->the_post();
+		
     	$post_slug = get_post_field( 'post_name' );
 		
-        echo '<li>';
-		echo '<a class="venobox" data-vbtype="inline" href="#'.$post_slug.'"><h3 class="menu-item-title">' . get_the_title() . '</h3></a>';
-		echo get_the_content();
-		echo '<ul class="shindig-ul">';
-		foreach( $s_diets as $s_diet ){
-		?>
-			<li>
-				<div class="tooltip"><?php echo $s_diet['value']; ?>, 
-  				<span class="tooltiptext"><?php echo $s_diet['label']; ?></span>
-				</div>
-			</li>
-	<?php } 
-		echo '</ul>';
-		echo '<div id="'.$post_slug.'" style="display:none;">';
-?>
-<div class="wp-block-columns has-2-columns">
-<div class="wp-block-column">
-<?php 
-$menu_img = wp_get_attachment_url( get_post_thumbnail_id(get_post_field(ID)) );
-if( $menu_img ) {
-
-    ?><img class="menu_img aligncenter" alt="<?=get_the_title()?>" src="<?php if($menu_img){echo $menu_img;}else{echo 'https://experienceshindig.com/wp-content/uploads/2019/06/Shindig-Logo-Favicon.png';} ?>" /><?php
-    }
-
-?>
-</div>
-
-
-
-<div class="wp-block-column menu_item">
-<h1><?php the_title(); ?></h1>
-<h2 class="course"><?php the_field('course_type'); ?></h2>
-<?php echo get_the_content();
-		echo '<ul class="shindig-ul">';
-		foreach( $s_diets as $s_diet ){
-		?>
-			<li>
-				<div class="tooltip"><?php echo $s_diet['value']; ?>, 
-  				<span class="tooltiptext"><?php echo $s_diet['label']; ?></span>
-				</div>
-			</li>
-	<?php } 
+  } 
 		echo '</ul>';
 ?>
 </div>
@@ -378,14 +337,14 @@ if( $menu_img ) {
 }
 /* Restore original Post Data */
 wp_reset_postdata(); 
-	// The Drinks Loop
-if ( $drinks_query->have_posts() ) {
+	// The main Loop
+if ( $main_query->have_posts() ) {
 		
 	echo '<li>';
-	echo '<h2 class="course">Drinks</h2>';
+	echo '<h2 class="course">main</h2>';
     echo '<ul class="menu-items">';
-    while ( $drinks_query->have_posts() ) {
-        $drinks_query->the_post();
+    while ( $main_query->have_posts() ) {
+        $main_query->the_post();
 		$post_id = get_the_id();
 		$s_diets = get_field('s_diets');
     	$post_slug = get_post_field( 'post_name' );
@@ -442,13 +401,13 @@ if( $menu_img ) {
 }
 /* Restore original Post Data */
 wp_reset_postdata(); 
-	// The Sweet Loop
-if ( $sweet_query->have_posts() ) {
+	// The dessert Loop
+if ( $dessert_query->have_posts() ) {
 	echo '<li>';
-	echo '<h2 class="course">Sweet</h2>';
+	echo '<h2 class="course">dessert</h2>';
     echo '<ul class="menu-items">';
-    while ( $sweet_query->have_posts() ) {
-        $sweet_query->the_post();
+    while ( $dessert_query->have_posts() ) {
+        $dessert_query->the_post();
 		$s_diets = get_field('s_diets');
     	$post_slug = get_post_field( 'post_name' );
         echo '<li>';
