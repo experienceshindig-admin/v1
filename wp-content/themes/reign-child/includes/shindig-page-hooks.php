@@ -26,18 +26,15 @@ function woocommerce_template_single_vendor_subtitle(){
 		$shindig_rating = get_post_meta( $id, '_wc_average_rating', true);
 		$shindig_rating_count = get_post_meta( $id, '_wc_review_count', true);
 		if ( $shindig_rating_count > 0 ) { ?>
-
-                    <span class="sub-title-rating">
-                       <?php
-            /*#rbeef - duplicate star-rating
-             *            echo str_repeat("<img class='rating-star' src='https://experienceshindig.com/wp-content/uploads/2019/08/star-solid-orange.png' />", $shindig_rating);
-                        echo '<span class="rating-count">('.$shindig_rating_count.')</span>';
-                       echo '<span class="read-reviews"><a href="#reviews">Read Reviews</a></span>';*/
-                       ?>
+            <span class="sub-title-rating">
+					<?php
+					echo str_repeat("<img class='rating-star' src='https://experienceshindig.com/wp-content/uploads/2019/08/star-solid-orange.png' />", $shindig_rating);
+                    echo '<span class="rating-count">('.$shindig_rating_count.')</span>'; 
+					echo '<span class="read-reviews"><a href="#reviews">Read Reviews</a></span>';
+					?>
                 </span>
-
             <?php
-            }
+}
         if ( !empty( $store_info['store_name'] ) ) { ?>
             <span class="sub-title">
                     <?php printf( 'By <a href="%s">%s</a>', dokan_get_store_url( $author->ID ), $store_info['store_name'] ); ?>
@@ -50,30 +47,25 @@ function woocommerce_template_single_options($post){
 	// vars	
 	$id = get_the_ID();
 	$specialty_diets = get_field('specialty_diets');
-
+	$other_options = get_field('other_options');
+	$serving_styles = get_field('serving_styles');
 	$alcohol_pairings = get_field('alcohol_pairings');
 	$min_person = get_post_meta( $id, '_wc_booking_min_persons_group', true);
 	$max_person = get_post_meta( $id, '_wc_booking_max_persons_group', true);
-	$person_multiplier = get_post_meta( $id, '_wc_booking_person_cost_multiplier', true);
 	$base_cost =  get_post_meta( $id, '_wc_booking_cost', true);
 	$cuisine = wc_get_product_category_list( get_the_id() );
 	
-if( $specialty_diets||$alcohol_pairings||$min_person||$max_person||$base_cost||$person_multiplier||$cuisine ):
+if( $specialty_diets||$serving_styles||$alcohol_pairings||$other_options||$min_person||$max_person||$base_cost||$cuisine ):
 	echo '<div class="shindig-options">';
 endif; 
 	
 // check
-if( !empty( $person_multiplier )){ ?>
+if( !empty($base_cost )): ?>
 	<div class="shindig-option">
 	<div class="shindig-option-img"><?php echo '<span class="cost-per-person">$</span>'; ?></div>
 	<div class="shindig-option-text"><?php echo 'Starting at $'.$base_cost.'/Person'; ?></div>
 	</div>
-<?php } else { ?>
-	<div class="shindig-option">
-	<div class="shindig-option-img"><?php echo '<span class="cost-per-person">$</span>'; ?></div>
-	<div class="shindig-option-text"><?php echo 'Starting at $'.$base_cost; ?></div>
-	</div>
-<?php }
+<?php endif;
 	
 // check
 if( $min_person||$max_person ): ?>
@@ -122,20 +114,24 @@ if( $specialty_diets ): ?>
 	</ul>
 		</div>
 	</div>
-<?php endif; ?>
+<?php endif;
+
+// check
+if( $serving_styles ): ?>
 	<div class="shindig-option">
 	<div class="shindig-option-img"><img src="https://experienceshindig.com/wp-content/uploads/2019/08/serving-tray.png" /></div>
 	<div class="shindig-option-text">
 	<ul class="shindig-ul">
-
+	<?php foreach( $serving_styles as $serving_style ): ?>
 		<li>
 		<div>
-  			<span>Full Service</span>
+  			<span><?php echo $serving_style['label']; ?>, </span>
 		</div>
 		</li>
+	<?php endforeach; ?>
 	</ul>
 	</div></div>
-<?php 
+<?php endif;
 
 // check
 if( $alcohol_pairings ): ?>
@@ -153,34 +149,21 @@ if( $alcohol_pairings ): ?>
 	</ul>
 		</div>
 	</div>
-<?php endif;?>
-	<div class="shindig-option">
-	<div class="shindig-option-img"><img src="https://experienceshindig.com/wp-content/uploads/2019/08/tasks-solid.png" /></div>
-	<div class="shindig-option-text">
-	<ul class="shindig-ul">
+<?php endif;
 
-		<li>
-		<div>
-  			<span>Set-Up Included</span>
-		</div>
-		</li>
-	</ul>
-	</div></div>
-	<div class="shindig-option">
-	<div class="shindig-option-img"><img src="https://experienceshindig.com/wp-content/uploads/2019/08/CleanDishes.png" /></div>
-	<div class="shindig-option-text">
-	<ul class="shindig-ul">
 
-		<li>
-		<div>
-  			<span>Clean-Up Included</span>
-		</div>
-		</li>
 
-	</ul>
-	</div></div>
-<?php
-if( $specialty_diets||$alcohol_parings||$min_person||$max_person||$base_cost||$person_multiplier||$cuisine ):
+// check
+if( $other_options ): ?>
+	<?php foreach( $other_options as $other_option ): ?>
+			<div class="shindig-option">
+			<div class="shindig-option-img"><img src="<?php echo $other_option['value']; ?>" /></div>
+  			<div class="shindig-option-text">
+		<span class="tooltiptext"><?php echo $other_option['label']; ?></span>
+			</div></div>
+	<?php endforeach; ?>
+<?php endif; 
+if( $specialty_diets||$serving_styles||$alcohol_parings||$other_options||$min_person||$max_person||$base_cost||$cuisine ):
 	echo '</div>';
 endif; 
 	}
@@ -188,24 +171,30 @@ endif;
 //ADD TO CART WRAP (will need to revise once calendar is updated to list. Add "if" available what dates. Also, need if date pre selected.)
 add_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_wrap_start_add_to_cart', 29 );
 function woocommerce_template_single_wrap_start_add_to_cart(){ 
-?>
-		<h1>Upcoming Availability</h1>
-	
-<?php }
-add_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_wrap_end_add_to_cart', 31 );
-function woocommerce_template_single_wrap_end_add_to_cart(){
 	global $product;
         $seller = get_post_field( 'post_author', $product->get_id());
         $author  = get_user_by( 'id', $seller );
         $store_info = dokan_get_store_info( $author->ID );
-if ( !empty( $store_info['store_name'] ) ) { ?>
-            <span class="sub-title">Not finding the date you want? Contact <a class="venobox" data-vbtype="inline" href="#contactvendor"><?=$store_info['store_name']?></a></span>
-<div id="contactvendor" style="display:none;">
-	<?php echo do_shortcode('[weforms id="9372"]'); ?>
-</div>
-            <?php }
+	?>
+	<div class="wrap-add-to-cart">
+		<div class="cart-availability">
+		<h1>Upcoming Availability</h1>
+	 
+        <?php if ( !empty( $store_info['store_name'] ) ) { ?>
+            <span class="sub-title">
+                    <?php printf( 'Not finding the date you want?<br />Contact <a href="%s">%s</a>.', dokan_get_store_url( $author->ID ), $store_info['store_name'] ); ?>
+                </span>
+            <?php } ?>
+		</div>
+	<div class="cart-schedule">
+	
+<?php }
+add_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_wrap_end_add_to_cart', 31 );
+function woocommerce_template_single_wrap_end_add_to_cart(){
+	echo '</div></div>';
 }
 
+//ADD DATE & CTA
 
 add_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_vendor_info', 33 );
 function woocommerce_template_single_vendor_info() { 
@@ -224,7 +213,7 @@ function woocommerce_template_single_vendor_info() {
 		$vendor_rating = get_post_meta( $id, ' ', true);
 		$vendor_rating_count = get_post_meta( $id, ' ', true);
 		
-        if ( $store_info['vendor_biography']||$store_info['years_of_experience']||$store_info['response_time']||$store_info['certificates'] ) { 
+        if ( !empty( $store_info['store_name'] ) ) { 
       		echo '<h1>About '.$store_info['store_name'].'</h1>';
 		 }
 			echo '<div class="shindig-vendor">';
@@ -251,7 +240,25 @@ function woocommerce_template_single_vendor_info() {
 					if( !empty($store_info['certificates'] )) { 
 						echo '<div><i class="fa fa-certificate"></i> <strong>Achievements:</strong> '.$store_info['certificates'].'</div>';
 					} 
-					echo '</div></div>';
+					echo '</div>';
+					echo '<div class="vendor-contact">';
+						
+					if( !empty( $vendor_img )) { 
+						echo '<div align="center" class="profile-img-circle">'.$vendor_img.'</div>'; 
+					} 
+					echo '<span class="sub-title">';
+                    printf( '<a href="%s">%s</a>.', dokan_get_store_url( $author->ID ), 'Contact' );
+					
+                	echo '</span>';
+						
+           
+		if ( $vendor_rating_count > 0 ) { 
+			echo str_repeat("<img class='rating-star' src='https://experienceshindig.com/wp-content/uploads/2019/08/star-solid-orange.png' />", $vendor_rating);
+            echo '<span class="rating-count">('.$vendor_rating_count.')</span>'; 
+			echo '<span class="read-reviews"><a href="#reviews">Read Reviews</a></span>';
+			echo '</span>';
+		}
+	echo '</div></div>';
 }
 
 add_action( 'woocommerce_after_single_product_summary', 'woocommerce_template_single_menu', 5 );
@@ -264,7 +271,7 @@ if( $menus ){ ?>
 	<ul class="menu">
 	<?php
 					
-$appetizer_query = new WP_Query(array(
+$savory_query = new WP_Query(array(
 	'post_type'      	=> 'menu_item',
 	'posts_per_page'	=> -1,
 	'post__in'			=> $menus,
@@ -273,12 +280,12 @@ $appetizer_query = new WP_Query(array(
 	'meta_query' => array(
        array(
            'key' => 'course_type',
-           'value' => 'Appetizer',
+           'value' => 'Savory',
            'compare' => '=',
        )
    )
 ));
-$main_query = new WP_Query(array(
+$drinks_query = new WP_Query(array(
 	'post_type'      	=> 'menu_item',
 	'posts_per_page'	=> -1,
 	'post__in'			=> $menus,
@@ -287,12 +294,12 @@ $main_query = new WP_Query(array(
 	'meta_query' => array(
        array(
            'key' => 'course_type',
-           'value' => 'Main',
+           'value' => 'Drinks',
            'compare' => '=',
        )
    )
 ));
-$dessert_query = new WP_Query(array(
+$sweet_query = new WP_Query(array(
 	'post_type'      	=> 'menu_item',
 	'posts_per_page'	=> -1,
 	'post__in'			=> $menus,
@@ -301,7 +308,7 @@ $dessert_query = new WP_Query(array(
 	'meta_query' => array(
        array(
            'key' => 'course_type',
-           'value' => 'Dessert',
+           'value' => 'Sweet',
            'compare' => '=',
        )
    )
@@ -314,17 +321,103 @@ function exclude_menu_img_class_from_lazy_load( $classes ) {
    return $classes;
 }											
 											
-// The appetizer Loop
-if ( $appetizer_query->have_posts() ) {
+// The Savory Loop
+if ( $savory_query->have_posts() ) {
 	echo '<li>';
-	echo '<h2 class="course">Appetizer</h2>';
+	echo '<h2 class="course">Savory</h2>';
     echo '<ul class="menu-items">';
-    while ( $appetizer_query->have_posts() ) {
-        $appetizer_query->the_post();
-		
+    while ( $savory_query->have_posts() ) {
+        $savory_query->the_post();
+		$s_diets = get_field('s_diets');
     	$post_slug = get_post_field( 'post_name' );
 		
-  } 
+        echo '<li>';
+		echo '<a class="venobox" data-vbtype="inline" href="#'.$post_slug.'"><h3 class="menu-item-title">' . get_the_title() . '</h3></a>';
+		echo '<p>' .get_field('ingredients'). '</p>';
+		echo '<ul class="shindig-ul">';
+		foreach( $s_diets as $s_diet ){
+		if($s_diet == 'Gluten Free'){
+			$diet_short = 'GF';
+		}
+		elseif($s_diet == 'Dairy Free'){
+			$diet_short = 'DF';
+		}
+		elseif($s_diet == 'Vegan'){
+			$diet_short = 'V';
+		}
+		elseif($s_diet == 'Vegetarian'){
+			$diet_short = 'VEG';
+		}
+		elseif($s_diet == 'Nut Free'){
+			$diet_short = 'NF';
+		}
+		elseif($s_diet == 'Corn Free'){
+			$diet_short = 'CF';
+		}
+		else{
+			$diet_short = $s_diet;
+		}?>
+			<li>
+				<div class="tooltip"><?php echo $diet_short; ?>, 
+  				<span class="tooltiptext"><?php echo $s_diet; ?></span>
+				</div>
+			</li>
+	<?php } 
+		echo '</ul>';
+		echo '<div id="'.$post_slug.'" style="display:none;">';
+?>
+<div class="wp-block-columns has-2-columns">
+<div class="wp-block-column">
+<?php 
+	$image_menu_id = get_field('menu_item_image');
+	$image_menu_item = wp_get_attachment_image_src( $image_menu_id, 'large', $icon = true );
+if( $image_menu_id ) {
+
+echo '<img class="menu_img aligncenter" alt="' . get_the_title(). '" src="'.$image_menu_item[0].'" />';
+}
+
+?>
+</div>
+
+
+
+<div class="wp-block-column menu_item">
+<h1><?php the_title(); ?></h1>
+<h2 class="course"><?php the_field('course_type'); ?></h2>
+<p><?php get_field('ingredients'); ?></p>
+<?php 
+	$s_diets = get_field('s_diets');
+		
+		echo '<ul class="shindig-ul">';
+		foreach( $s_diets as $s_diet ){ 
+		if($s_diet == 'Gluten Free'){
+			$diet_short = 'GF';
+		}
+		elseif($s_diet == 'Dairy Free'){
+			$diet_short = 'DF';
+		}
+		elseif($s_diet == 'Vegan'){
+			$diet_short = 'V';
+		}
+		elseif($s_diet == 'Vegetarian'){
+			$diet_short = 'VEG';
+		}
+		elseif($s_diet == 'Nut Free'){
+			$diet_short = 'NF';
+		}
+		elseif($s_diet == 'Corn Free'){
+			$diet_short = 'CF';
+		}
+		else{
+			$diet_short = $s_diet;
+		}
+		?>
+			<li class="s_diet">
+				<div class="tooltip"><?php echo $diet_short; ?>, 
+  				<span class="tooltiptext"><?php echo $s_diet; ?></span>
+				</div>
+			</li>
+	<?php }
 		echo '</ul>';
 ?>
 </div>
@@ -337,40 +430,61 @@ if ( $appetizer_query->have_posts() ) {
 }
 /* Restore original Post Data */
 wp_reset_postdata(); 
-	// The main Loop
-if ( $main_query->have_posts() ) {
+	// The Drinks Loop
+if ( $drinks_query->have_posts() ) {
 		
 	echo '<li>';
-	echo '<h2 class="course">main</h2>';
+	echo '<h2 class="course">Drinks</h2>';
     echo '<ul class="menu-items">';
-    while ( $main_query->have_posts() ) {
-        $main_query->the_post();
+    while ( $drinks_query->have_posts() ) {
+        $drinks_query->the_post();
 		$post_id = get_the_id();
 		$s_diets = get_field('s_diets');
     	$post_slug = get_post_field( 'post_name' );
         echo '<li>';
 		echo '<a class="venobox" data-vbtype="inline" href="#'.$post_slug.'"><h3 class="menu-item-title">' . get_the_title(). '</h3></a>';
-		echo get_the_content();
+		echo '<p>' .get_field('ingredients'). '</p>';
 		echo '<ul class="shindig-ul">';
-		foreach( $s_diets as $s_diet ){
-		?>
+		foreach( $s_diets as $s_diet ){ 
+		if($s_diet == 'Gluten Free'){
+			$diet_short = 'GF';
+		}
+		elseif($s_diet == 'Dairy Free'){
+			$diet_short = 'DF';
+		}
+		elseif($s_diet == 'Vegan'){
+			$diet_short = 'V';
+		}
+		elseif($s_diet == 'Vegetarian'){
+			$diet_short = 'VEG';
+		}
+		elseif($s_diet == 'Nut Free'){
+			$diet_short = 'NF';
+		}
+		elseif($s_diet == 'Corn Free'){
+			$diet_short = 'CF';
+		}
+		else{
+			$diet_short = $s_diet;
+		}?>
 			<li>
-				<div class="tooltip"><?php echo $s_diet['value']; ?>, 
-  				<span class="tooltiptext"><?php echo $s_diet['label']; ?></span>
+				<div class="tooltip"><?php echo $diet_short; ?>, 
+  				<span class="tooltiptext"><?php echo $s_diet; ?></span>
 				</div>
 			</li>
-	<?php } 
+	<?php }
 		echo '</ul>';
 		echo '<div id="'.$post_slug.'" style="display:none;">';
 ?>
 <div class="wp-block-columns has-2-columns">
 <div class="wp-block-column">
 <?php 
-$menu_img = wp_get_attachment_url( get_post_thumbnail_id(get_post_field(ID)) );
-if( $menu_img ) {
+	$image_menu_id = get_field('menu_item_image');
+	$image_menu_item = wp_get_attachment_image_src( $image_menu_id, 'large', $icon = true );
+if( $image_menu_id ) {
 
-    ?><img class="menu_img aligncenter" alt="<?=get_the_title()?>" src="<?php if($menu_img){echo $menu_img;}else{echo 'https://experienceshindig.com/wp-content/uploads/2019/06/Shindig-Logo-Favicon.png';} ?>" /><?php
-    }
+echo '<img class="menu_img aligncenter" alt="' . get_the_title(). '" src="'.$image_menu_item[0].'" />';
+}
 ?>
 </div>
 
@@ -379,13 +493,37 @@ if( $menu_img ) {
 <div class="wp-block-column menu_item">
 <h1><?php the_title(); ?></h1>
 <h2 class="course"><?php the_field('course_type'); ?></h2>
-<?php echo get_the_content();
+<p><?php the_field('ingredients'); ?></p>
+<?php 
+	$s_diets = get_field('s_diets');
+		
 		echo '<ul class="shindig-ul">';
 		foreach( $s_diets as $s_diet ){
+		if($s_diet == 'Gluten Free'){
+			$diet_short = 'GF';
+		}
+		elseif($s_diet == 'Dairy Free'){
+			$diet_short = 'DF';
+		}
+		elseif($s_diet == 'Vegan'){
+			$diet_short = 'V';
+		}
+		elseif($s_diet == 'Vegetarian'){
+			$diet_short = 'VEG';
+		}
+		elseif($s_diet == 'Nut Free'){
+			$diet_short = 'NF';
+		}
+		elseif($s_diet == 'Corn Free'){
+			$diet_short = 'CF';
+		}
+		else{
+			$diet_short = $s_diet;
+		}
 		?>
-			<li>
-				<div class="tooltip"><?php echo $s_diet['value']; ?>, 
-  				<span class="tooltiptext"><?php echo $s_diet['label']; ?></span>
+			<li class="s_diet">
+				<div class="tooltip"><?php echo $diet_short; ?>, 
+  				<span class="tooltiptext"><?php echo $s_diet; ?></span>
 				</div>
 			</li>
 	<?php } 
@@ -401,24 +539,44 @@ if( $menu_img ) {
 }
 /* Restore original Post Data */
 wp_reset_postdata(); 
-	// The dessert Loop
-if ( $dessert_query->have_posts() ) {
+	// The Sweet Loop
+if ( $sweet_query->have_posts() ) {
 	echo '<li>';
-	echo '<h2 class="course">dessert</h2>';
+	echo '<h2 class="course">Sweet</h2>';
     echo '<ul class="menu-items">';
-    while ( $dessert_query->have_posts() ) {
-        $dessert_query->the_post();
+    while ( $sweet_query->have_posts() ) {
+        $sweet_query->the_post();
 		$s_diets = get_field('s_diets');
     	$post_slug = get_post_field( 'post_name' );
         echo '<li>';
 		echo '<a class="venobox" data-vbtype="inline" href="#'.$post_slug.'"><h3 class="menu-item-title">' . get_the_title() . '</h3></a>';
-		echo get_the_content();
+		echo '<p>' .the_field('ingredients'). '</p>';
 		echo '<ul class="shindig-ul">';
 		foreach( $s_diets as $s_diet ){
-		?>
+		if($s_diet == 'Gluten Free'){
+			$diet_short = 'GF';
+		}
+		elseif($s_diet == 'Dairy Free'){
+			$diet_short = 'DF';
+		}
+		elseif($s_diet == 'Vegan'){
+			$diet_short = 'V';
+		}
+		elseif($s_diet == 'Vegetarian'){
+			$diet_short = 'VEG';
+		}
+		elseif($s_diet == 'Nut Free'){
+			$diet_short = 'NF';
+		}
+		elseif($s_diet == 'Corn Free'){
+			$diet_short = 'CF';
+		}
+		else{
+			$diet_short = $s_diet;
+		}?>
 			<li>
-				<div class="tooltip"><?php echo $s_diet['value']; ?>, 
-  				<span class="tooltiptext"><?php echo $s_diet['label']; ?></span>
+				<div class="tooltip"><?php echo $diet_short; ?>, 
+  				<span class="tooltiptext"><?php echo $s_diet; ?></span>
 				</div>
 			</li>
 	<?php } 
@@ -428,11 +586,12 @@ if ( $dessert_query->have_posts() ) {
 <div class="wp-block-columns has-2-columns">
 <div class="wp-block-column">
 <?php 
-$menu_img = wp_get_attachment_url( get_post_thumbnail_id(get_post_field(ID)) );
-if( $menu_img ) {
+	$image_menu_id = get_field('menu_item_image');
+	$image_menu_item = wp_get_attachment_image_src( $image_menu_id, 'large', $icon = true );
+if( $image_menu_id ) {
 
-    ?><img class="menu_img aligncenter" alt="<?=get_the_title()?>" src="<?php if($menu_img){echo $menu_img;}else{echo 'https://experienceshindig.com/wp-content/uploads/2019/06/Shindig-Logo-Favicon.png';} ?>" /><?php
-    }
+echo '<img class="menu_img aligncenter" alt="' . get_the_title(). '" src="'.$image_menu_item[0].'" />';
+}
 
 ?>
 </div>
@@ -442,13 +601,37 @@ if( $menu_img ) {
 <div class="wp-block-column menu_item">
 <h1><?php the_title(); ?></h1>
 <h2 class="course"><?php the_field('course_type'); ?></h2>
-<?php echo get_the_content();
+<p><?php the_field('ingredients'); ?></p>
+<?php 
+	$s_diets = get_field('s_diets');
+		
 		echo '<ul class="shindig-ul">';
-		foreach( $s_diets as $s_diet ){
+		foreach( $s_diets as $s_diet ){ 
+		if($s_diet == 'Gluten Free'){
+			$diet_short = 'GF';
+		}
+		elseif($s_diet == 'Dairy Free'){
+			$diet_short = 'DF';
+		}
+		elseif($s_diet == 'Vegan'){
+			$diet_short = 'V';
+		}
+		elseif($s_diet == 'Vegetarian'){
+			$diet_short = 'VEG';
+		}
+		elseif($s_diet == 'Nut Free'){
+			$diet_short = 'NF';
+		}
+		elseif($s_diet == 'Corn Free'){
+			$diet_short = 'CF';
+		}
+		else{
+			$diet_short = $s_diet;
+		}
 		?>
-			<li>
-				<div class="tooltip"><?php echo $s_diet['value']; ?>, 
-  				<span class="tooltiptext"><?php echo $s_diet['label']; ?></span>
+			<li class="s_diet">
+				<div class="tooltip"><?php echo $diet_short; ?>, 
+  				<span class="tooltiptext"><?php echo $s_diet; ?></span>
 				</div>
 			</li>
 	<?php } 
@@ -497,70 +680,90 @@ add_action( 'woocommerce_after_single_product_summary', 'woocommerce_template_si
 function woocommerce_template_single_additional_info(){
 echo '<div class="clear"></div>';
 	
+	$cancellation_policy = get_field('cancellation_policy');
+	$communication = get_field('communication');
+	$guests = get_field('guests');
+	$alcohol = get_field('alcohol');
+	$tips = get_field('tips');
+$venue_requirements = get_field('venue_requirements');
+	
+	if( $cancellation_policy||$communication||$guests||$alcohol||$tips||$venue_requirements||the_content() ){
+	
 	echo '<div class="add-info">';
-	echo '<h1>Terms</h1>';
+	echo '<h1>Additional Information</h1>';
 	echo '<div class="more">';
 	echo wp_strip_all_tags( get_the_content() );
 	echo '</div>';
-	 ?>
+	}
  
-<div class="policy">
-<h2>How far out can I book? </h2>
-All bookings can be booked from 5 days to 12 months in the future. For last-minute bookings, contact our team at <a href="mailto:hello@experienceshindig.com">hello@experienceshindig.com</a> or the provider with the contact button above.
-</div>
-<div class="policy">
-<h2>Cancellations</h2>
-Cancelations before 3 weeks of the event, will receive a full refund. Cancellations within 7 days out may forfeit their deposit. Cancellations within 48 hours of the event may be subject to forfeiting the entire cost of the booking. If you are in this situation, please email us directly so we can better assist you (<a href="mailto:hello@experienceshindig.com">hello@experienceshindig.com</a>).
-</div>
-<div class="policy">
-<h2>Headcount Lock-in</h2>
-Prices are generally determined per person. If you need to change the number of people attending, please do so prior to 7 days of the event by emailing us at <a href="mailto:hello@experienceshindig.com">hello@experienceshindig.com</a> and we can make the appropriate changes to the reservation. 
-</div>
-<div class="policy">
-<h2>Deposit &amp; Payment</h2>
-At the time of booking, we will hold 50% of the cost of the booking until the provider confirms the reservation. The remaining balance will be collected on the morning of the event. Gratuity is not required. If you feel so inclined, you are welcome to give cash directly to the provider at the event. By booking, you are agreeing to our complete <a href="http://www.experienceshindig.com/terms">terms of use</a> and <a href="http://www.experienceshindig.com/policy">privacy policy</a>.
-</div>
-
+if( $cancellation_policy ): 
+	echo '<div class="policy">';
+	echo '<h2>Cancellation Policy</h2>';
+	echo '<div class="more">' . $cancellation_policy . '</div>';
+	echo '</div>';
+endif;
+if( $communication ): 
+	echo '<div class="policy">';
+	echo '<h2>Communication</h2>';
+	echo '<div class="more">' . $communication . '</div>';
+	echo '</div>';
+endif; 
+if( $guests ):
+	echo '<div class="policy">';
+	echo '<h2>Guest Guidelines</h2>';
+	echo '<div class="more">' . $guests . '</div>';
+	echo '</div>';
+endif;
+if( $alcohol ):
+	echo '<div class="policy">';
+	echo '<h2>Alcohol Policy</h2>';
+	echo '<div class="more">' . $alcohol . '</div>';
+	echo '</div>';
+endif;
+if( $tips ):
+	echo '<div class="policy">';
+	echo '<h2>Tips &amp; Tricks</h2>';
+	echo '<div class="more">' . $tips . '</div>';
+	echo '</div>';
+endif;
+// check
+if( $venue_requirements ){ ?>
 	<div class="policy"><h2>Venue Requirements</h2>
 	<ul class="shindig-venue_requirements">
+	<?php foreach( $venue_requirements as $venue_requirement ): ?>
 			<li>
-			<img src="https://experienceshindig.com/wp-content/uploads/2019/08/oven-icon.png" />
-  			<span>Oven</span>
+			<img src="<?php echo $venue_requirement['value']; ?>" />
+  			<span><?php echo $venue_requirement['label']; ?></span>
 			</li>
-			<li>
-			<img src="https://experienceshindig.com/wp-content/uploads/2019/08/sink.png" />
-  			<span>Sink</span>
-			</li>
-			<li>
-			<img src="https://experienceshindig.com/wp-content/uploads/2019/12/refrigerator.png" />
-  			<span>Refrigerator</span>
-			</li>
+	<?php endforeach; ?>
 	</ul>
-	</div>
-</div>
-<div class="clear"></div>
+		</div>
+<?php } 
 
-<?php }
+if( $cancellation_policy||$communication||$guests||$alcohol||$tips||$venue_requirements||the_content() ):
+	echo '</div>';
+	echo '<div class="clear"></div>';
+endif; 
+}
 
 add_filter( 'woocommerce_product_tabs', 'woo_remove_product_tabs', 98 );
 function woo_remove_product_tabs( $tabs ) {
-
+    unset( $tabs['reviews'] );  // Removes the reviews tab
     unset( $tabs['additional_information'] );  // Removes the additional information tab
 	unset( $tabs['seller'] );
 	unset( $tabs['more_seller_product'] );
     return $tabs;
 }
-/*#rbeef - this function is called in functions.php
+
 add_action( 'woocommerce_after_single_product_summary', 'my_plugin_comment_template', 9 );
 function my_plugin_comment_template( $comment_template ) {
      global $product;
 	$count = $product->get_review_count();
      if ($count>0){
-         woocommerce_get_template( 'single-product-reviews.php' );
+        woocommerce_get_template( 'single-product-reviews.php' );
 	 }
 }
-*/
-remove_action( 'woocommerce_after_single_product_summary', 'woocommerce_output_product_data_tabs', 10 ); 
+remove_action( 'woocommerce_after_single_product_summary', 'woocommerce_output_product_data_tabs', 10 );
 add_action( 'woocommerce_after_single_product', 'report_shindig', 10 );
 function report_shindig() {	
 	echo '<hr />';
