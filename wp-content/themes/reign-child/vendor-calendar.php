@@ -98,6 +98,10 @@ if ($_POST) {
         );
     }
 
+    // Save min days and max months
+    update_field( 'min_days_out', $_POST['min_days_out'], wp_get_current_user());
+    update_field( 'max_months_out', $_POST['max_months_out'], wp_get_current_user());
+
     // Get all shindigs
     $args = array(
         'posts_per_page' => -1,
@@ -106,9 +110,18 @@ if ($_POST) {
     );
     $shindigs = get_posts($args);
 
-    // Replace all existing blocks on shindigs
     foreach ($shindigs as $shindig) {
+    	// Replace all existing blocks on shindigs
         $updated = update_post_meta($shindig->ID, '_wc_booking_availability', $availability);
+
+        // Replace min days out
+        update_post_meta($shindig->ID, '_wc_booking_min_date_unit', 'day');
+        update_post_meta($shindig->ID, '_wc_booking_min_date', $_POST['min_days_out']);
+
+        update_post_meta($shindig->ID, '_wc_booking_max_date_unit', 'month');
+        update_post_meta($shindig->ID, '_wc_booking_max_date', $_POST['max_months_out']);
+
+        // Replace max days out
     }
 
     $message = 'Calendar has been updated';
@@ -129,6 +142,7 @@ if ($_POST) {
 <?php
 $i = 0;
 $dates = get_field('unavailable_dates', wp_get_current_user());
+
 if ($dates) {
     $sortable_dates = array();
     $date_now = new DateTime();
@@ -165,7 +179,19 @@ $i++;
 						<input type='text' class="dokan-form-control daterange" data-i="<?=$i?>">
 					</div>
 				</div>
-				<input type='submit' value='Save' />
+<?php
+	$min_days_out = get_field('min_days_out', wp_get_current_user());
+	$max_months_out = get_field('max_months_out', wp_get_current_user());
+?>
+				<div>
+					<label style='display:block;'>Minimum notice required for booking?</label>
+					<input type='number' class='dokan-form-control' name='min_days_out' min='0' max='31' step='1' style='width:65px; display:inline;' value='<?=$min_days_out ? $min_days_out : '7' ?>' /> Days
+				</div>
+				<div>
+					<label style='display:block;'>How far out do you take bookings?</label>
+					<input type='number' class='dokan-form-control' name='max_months_out' min='1' max='24' step='1' style='width:65px; display:inline;' value='<?=$max_months_out ? $max_months_out : '12' ?>' /> Months
+				</div>
+				<input style='margin-top:1em;' type='submit' value='Save' />
 			</form>
 		 </div>
 	</div>
