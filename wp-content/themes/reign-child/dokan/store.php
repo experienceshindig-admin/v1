@@ -329,7 +329,7 @@ get_header( 'shop' );
 <hr />
 			<span class="report-shindig" onclick="reportForm()">Report Problem with Provider</span>
 			<div style="display:none;" id="reportForm">';
-				<?php echo do_shortcode('[weforms id="5898"]'); ?>
+				<?php echo do_shortcode('[wpforms id="10320" title="false" description="false"]'); ?>
 			</div>
 				<script>
 				function reportForm() {

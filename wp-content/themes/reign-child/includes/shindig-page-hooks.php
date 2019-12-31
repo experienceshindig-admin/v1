@@ -201,7 +201,7 @@ function woocommerce_template_single_wrap_end_add_to_cart(){
 if ( !empty( $store_info['store_name'] ) ) { ?>
             <span class="sub-title">Not finding the date you want? Contact <a class="venobox" data-vbtype="inline" href="#contactvendor"><?=$store_info['store_name']?></a></span>
 <div id="contactvendor" style="display:none;">
-	<?php echo do_shortcode('[weforms id="9372"]'); ?>
+	<?php echo do_shortcode('[wpforms id="10321" title="false" description="false"]'); ?>
 </div>
             <?php }
 }
@@ -607,7 +607,7 @@ function report_shindig() {
 	echo '<hr />';
 	echo '<span class="report-shindig" onclick="reportForm()">Report Problem with Shindig</span>';
 echo '<div style="display:none;" id="reportForm">';
-	echo do_shortcode('[weforms id="5898"]');
+	echo do_shortcode('[wpforms id="10320" title="false" description="false"]');
 echo '</div>';
 
 ?>
