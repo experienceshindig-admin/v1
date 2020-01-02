@@ -105,9 +105,11 @@ get_header( 'shop' );
 			echo '<div class="subhead-cat">';
             echo $store_info['cuisine_spec'];
 			echo '</div>';
+			echo '<div class="contact-vendor">';
 			echo '<a class="venobox button" data-vbtype="inline" href="#contactvendor">Contact</a>';
 			echo '<div id="contactvendor" style="display:none;">';
   			echo do_shortcode('[wpforms id="10321" title="false" description="false"]');
+  			echo '</div>';
 			echo '</div>';
 				 ?>
 
