@@ -105,7 +105,10 @@ get_header( 'shop' );
 			echo '<div class="subhead-cat">';
             echo $store_info['cuisine_spec'];
 			echo '</div>';
-			//BOOK NOW BUTTONS
+			echo '<a class="venobox button" data-vbtype="inline" href="#contactvendor">Contacy</a>';
+			echo '<div id="contactvendor" style="display:none;">';
+  			echo do_shortcode('[wpforms id="10321" title="false" description="false"]');
+			echo '</div>';
 				 ?>
 
 
