@@ -71,7 +71,7 @@ if( !empty( $person_multiplier )){ ?>
 <?php } else { ?>
 	<div class="shindig-option">
 	<div class="shindig-option-img"><?php echo '<span class="cost-per-person">$</span>'; ?></div>
-	<div class="shindig-option-text"><?php echo 'Starting at $'.$base_cost; ?></div>
+	<div class="shindig-option-text"><?php echo '$'.$base_cost; ?></div>
 	</div>
 <?php }
 	
