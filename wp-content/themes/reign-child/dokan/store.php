@@ -104,7 +104,7 @@ get_header( 'shop' );
                     <?php }
 			echo '<div class="subhead-cat">';
             echo $store_info['cuisine_spec'];
-            echo dokan_store_category( $seller_id, $title );
+  
 			echo '</div>';
 			echo '<div class="contact-vendor">';
 			echo '<a class="venobox button" data-vbtype="inline" href="#contactvendor">Contact</a>';
