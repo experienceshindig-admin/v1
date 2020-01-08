@@ -43,7 +43,7 @@ get_header( 'shop' );
 						echo '<li><span class="fa-li"><i class="fa fa-certificate"></i></span> <strong>Achievements:</strong> '.$store_info['certificates'].'</li>';
 					}
 					$seller_id  = (int) get_query_var( 'author' );
-					echo '<li><span class="fa-li"><i class="fa fa-cutlery"></i></span><strong>Specialties:</strong> ';
+					echo '<li><span class="fa-li"><i class="fa fa-cutlery"></i></span><strong>Vendor Type:</strong> ';
 					echo dokan_store_category_menu( $seller_id, $title );
 					echo '</li>';
 
@@ -104,7 +104,7 @@ get_header( 'shop' );
                     <?php }
 			echo '<div class="subhead-cat">';
             echo $store_info['cuisine_spec'];
-  			echo wp_get_object_terms( $vendor->get_id(), 'store_category' );
+  			echo $shop_info['categories'];
 			echo '</div>';
 			echo '<div class="contact-vendor">';
 			echo '<a class="venobox button" data-vbtype="inline" href="#contactvendor">Contact</a>';
