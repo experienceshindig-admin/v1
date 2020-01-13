@@ -100,8 +100,6 @@ function dokan_load_template( $query_vars ) {
 
     }
 
-
-    }
 	if ( isset( $query_vars['chefs'] ) ) {
         require_once dirname( __FILE__ ). '/vendor-chefs.php';
         exit();
