@@ -483,6 +483,7 @@ ul.shindig-venue_requirements li {
 .menu>li {
 	margin-right:30px;
 	flex-grow:1;
+	max-width:33%;
 
 }
 .menu>li:last-child {
@@ -637,10 +638,7 @@ fieldset.category select#cat {
 .vendor-menu-item:nth-child(3),.vendor-menu-item:nth-child(6), .vendor-menu-item:nth-child(9), .vendor-menu-item:nth-child(12), .vendor-menu-item:nth-child(15),.vendor-menu-item:nth-child(18), .vendor-menu-item:nth-child(21), .vendor-menu-item:nth-child(24){
 	margin-right:0 !important;
 }
-.dokan-single-store .dokan-store-tabs ul li.dokan-store-follow-store-button-container {
-	margin: 3px 0 0 0;
-	padding: 6px 9px;
-}
+
 .rda-vendor-banner-overlay:after {
 	display:none;
 }
