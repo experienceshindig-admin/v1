@@ -112,14 +112,7 @@ get_header( 'shop' );
       				echo "<p>".$str."</p>";
     				}
                 }
-				if( !empty($store_info['company_values'] )) {
-					echo '<h3>Company Values</h3>';
-					$newarr = explode("\n",$store_info['company_values']);
-
-      				foreach($newarr as $str) {
-      				echo "<p>".$str."</p>";
-					
-				}
+				
 
 		/* Indiviual chefs are not wanted right now
 		$chef_item_query = new WP_Query(array(
