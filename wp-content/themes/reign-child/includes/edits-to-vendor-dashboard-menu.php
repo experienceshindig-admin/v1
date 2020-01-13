@@ -14,7 +14,7 @@ function prefix_dokan_rename_seller_nav( $urls ) {
 
     $urls['settings']['title'] = 'Portfolio';
 	$urls['settings']['pos'] = '10';
-
+	unset( $urls['coupons'] );
 	unset( $urls['products'] );
 	unset( $urls['orders'] );
 
