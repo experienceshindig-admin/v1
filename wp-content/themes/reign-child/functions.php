@@ -9,7 +9,7 @@ require_once(__DIR__.'/includes/shindig-page-hooks.php');
 require_once(__DIR__.'/includes/toggle-jquery.php');
 require_once(__DIR__.'/includes/edits-to-vendor-dashboard-menu.php');
 require_once(__DIR__.'/includes/vendor-form.php');
-require_once(__DIR__.'/includes/product-dashboard-meta-fields.php');
+
 
 add_action( 'wp_enqueue_scripts', 'reign_child_enqueue_styles' );
 function reign_child_enqueue_styles() {
