@@ -16,8 +16,8 @@ function prefix_dokan_rename_seller_nav( $urls ) {
 	$urls['settings']['pos'] = '10';
 	$urls['booking']['pos'] = '1';
 	$urls['booking']['title'] = 'Shindigs';
-	unset( $urls['products'] );
-	unset( $urls['orders'] );
+	// unset( $urls['products'] );
+	// unset( $urls['orders'] );
 
     return $urls;
 }
