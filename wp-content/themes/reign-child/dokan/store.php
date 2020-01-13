@@ -90,6 +90,7 @@ get_header( 'shop' );
                         <h1 class="store-name"><?php echo esc_html( $store_user->get_shop_name() ); ?></h1>
                     <?php }
 			echo '<div class="subhead-cat">';
+			$seller_id  = (int) get_query_var( 'author' );
             echo dokan_store_category_menu( $seller_id, $title );
 			echo '</div>';
 			echo '<a class="venobox button" data-vbtype="inline" href="#contactvendor">Contact</a>';
