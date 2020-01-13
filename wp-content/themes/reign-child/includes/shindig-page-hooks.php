@@ -257,13 +257,6 @@ function woocommerce_template_single_vendor_info() {
 add_action( 'woocommerce_after_single_product_summary', 'woocommerce_template_single_menu', 5 );
 function woocommerce_template_single_menu(){ 
 $menus = get_field('menu');
-if( $menus ){ ?>
-<div class="clear"></div>
-		 <h1>Menu</h1>
-
-	<ul class="menu">
-	<?php
-					
 $app_query = new WP_Query(array(
 	'post_type'      	=> 'menu_item',
 	'posts_per_page'	=> -1,
@@ -306,6 +299,28 @@ $dessert_query = new WP_Query(array(
        )
    )
 ));
+
+$services_query = new WP_Query(array(
+	'post_type'      	=> 'menu_item',
+	'posts_per_page'	=> -1,
+	'post__in'			=> $menus,
+	'post_status'		=> 'any',
+	'orderby'        	=> 'post__in',
+	'meta_query' => array(
+       array(
+           'key' => 'course_type',
+           'value' => 'Services',
+           'compare' => '=',
+       )
+   )
+));
+if( $app_query->have_posts() || $mc_query->have_posts() || $dessert_query->have_posts() ){ ?>
+<div class="clear"></div>
+		 <h1>Sample Menu</h1>
+
+	<ul class="menu">
+	<?php
+					
 		
 add_filter( 'jetpack_lazy_images_blacklisted_classes', 'exclude_menu_img_class_from_lazy_load', 999, 1 );
              
@@ -508,7 +523,69 @@ wp_reset_postdata(); ?>
 	</ul>
 <div class="clear"></div>
 			 
-<?php	}}
+<?php	}
+if( $services_query->have_posts() ){ ?>
+<div class="clear"></div>
+		 <h1>Services</h1>
+
+	<ul class="services">
+	<?php
+					
+		
+add_filter( 'jetpack_lazy_images_blacklisted_classes', 'exclude_menu_img_class_from_lazy_load', 999, 1 );
+             
+function exclude_menu_img_class_from_lazy_load( $classes ) {
+   $classes[] = 'menu_img';
+   return $classes;
+}											
+											
+	// The Services Loop
+if ( $services_query->have_posts() ) {
+	echo '<li>';
+    echo '<ul class="menu-items">';
+    while ( $dessert_query->have_posts() ) {
+        $dessert_query->the_post();
+		$s_diets = get_field('s_diets');
+    	$post_slug = get_post_field( 'post_name' );
+        echo '<li>';
+		echo '<a class="venobox" data-vbtype="inline" href="#'.$post_slug.'"><h3 class="menu-item-title">' . get_the_title() . '</h3></a>';
+		echo get_the_content();
+
+		echo '<div id="'.$post_slug.'" style="display:none;">';
+?>
+<div class="wp-block-columns has-2-columns">
+<div class="wp-block-column">
+<?php 
+$menu_img = wp_get_attachment_url( get_post_thumbnail_id(get_post_field(ID)) );
+if( $menu_img ) {
+
+    ?><img class="menu_img aligncenter" alt="<?=get_the_title()?>" src="<?php if($menu_img){echo $menu_img;}else{echo 'https://experienceshindig.com/wp-content/uploads/2019/06/Shindig-Logo-Favicon.png';} ?>" /><?php
+    }
+
+?>
+</div>
+
+
+
+<div class="wp-block-column menu_item">
+<h1><?php the_title(); ?></h1>
+<h2 class="course"><?php the_field('course_type'); ?></h2>
+<?php echo get_the_content(); ?>
+</div>
+</div><?php
+		echo '</div>';
+		echo '</li>';
+    }
+    echo '</ul>';
+	echo '</li>';
+}
+/* Restore original Post Data */
+wp_reset_postdata(); ?>
+	</ul>
+<div class="clear"></div>
+			 
+<?php	}
+}
 add_action( 'woocommerce_single_product_summary', 'custom_single_product_summary', 2 );
 function custom_single_product_summary(){
     global $product;
