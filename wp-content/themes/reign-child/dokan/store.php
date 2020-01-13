@@ -13,7 +13,7 @@ $store_info   = $store_user->get_shop_info();
 $map_location = $store_user->get_location();
 $social_info   = $store_user->get_social_profiles();
 $social_fields = dokan_get_social_profile_fields();
-
+$vendor_info = dokan_get_store_info( $author->ID );
 $dokan_appearance = get_option( 'dokan_appearance' );
 $profile_layout   = empty( $dokan_appearance['store_header_template'] ) ? 'default' : $dokan_appearance['store_header_template'];
 $store_address    = dokan_get_seller_short_address( $store_user->get_id(), false );
@@ -43,7 +43,7 @@ get_header( 'shop' );
 						echo '<li><span class="fa-li"><i class="fa fa-certificate"></i></span> <strong>Achievements:</strong> '.$store_info['certificates'].'</li>';
 					}
 					$seller_id  = (int) get_query_var( 'author' );
-					echo '<li><span class="fa-li"><i class="fa fa-cutlery"></i></span><strong>Vendor Type:</strong> ';
+					echo '<li><span class="fa-li"><i class="fa fa-cutlery"></i></span><strong>Specialties:</strong> ';
 					echo dokan_store_category_menu( $seller_id, $title );
 					echo '</li>';
 
@@ -67,19 +67,7 @@ get_header( 'shop' );
 
 				//CHANGE INTO RADIUS & GET LAT & LNG
 
-				?>
-				<h3>Service Area</h3>
-
-				  <?php
-				if ( isset( $store_address ) && !empty( $store_address ) ) {
-
-                 echo $store_address;
-				echo '<p>Travel Distance: '.$store_info['travel_dist'].'</p>';
-
-                } ?>
-
-
-                <?php
+			// Service Area
 
 				//NEED UPCOMING AVAILABILITY WIDGET
                 ?>
@@ -104,13 +92,11 @@ get_header( 'shop' );
                     <?php }
 			echo '<div class="subhead-cat">';
             echo $store_info['cuisine_spec'];
-  			echo $store_categories;
+            echo $vendor_info['categories'];
 			echo '</div>';
-			echo '<div class="contact-vendor">';
 			echo '<a class="venobox button" data-vbtype="inline" href="#contactvendor">Contact</a>';
 			echo '<div id="contactvendor" style="display:none;">';
   			echo do_shortcode('[wpforms id="10321" title="false" description="false"]');
-  			echo '</div>';
 			echo '</div>';
 				 ?>
 
@@ -128,7 +114,11 @@ get_header( 'shop' );
                 }
 				if( !empty($store_info['company_values'] )) {
 					echo '<h3>Company Values</h3>';
-					echo '<p>'.$store_info['company_values'].'</p>';
+					$newcval = explode("\n",$store_info['company_values']);
+
+      				foreach($newcval as $strcval) {
+      				echo "<p>".$strcval."</p>";
+					
 				}
 
 		/* Indiviual chefs are not wanted right now
