@@ -685,7 +685,10 @@ body.dokan-store h3 {
 	color:#262626;
 }
 li.parent-cat-wrap a:after{
-	content:','
+	content:',';
+}
+li.parent-cat-wrap:last-child a:after{
+	content:' ';
 }
 .subhead-cat ul li a{
 	color:#262626;
