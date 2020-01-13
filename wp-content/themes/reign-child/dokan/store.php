@@ -111,14 +111,15 @@ get_header( 'shop' );
       				echo "<p>".$str."</p>";
     				}
                 }
-                if( !empty($store_info['company_values'] )) {
-          		echo '<h3>Company Values</h3>';
-          		$newarr = explode("\n",$store_info['company_values']);
+                if ( ! empty( $store_info['company_values'] )) {
+					echo '<h3 class="headline">'. apply_filters( 'dokan_vendor_biography_title', __( 'Values', 'dokan' ) ).'</h3>';
+                    $newarr = explode("\n",$store_info['company_values']);
 
-              foreach($newarr as $str) {
-              echo "<p>".$str."</p>";
-          
-        }
+      				foreach($newarr as $str) {
+      				echo "<p>".$str."</p>";
+    				}
+                }
+                
 				
 
 		/* Indiviual chefs are not wanted right now
