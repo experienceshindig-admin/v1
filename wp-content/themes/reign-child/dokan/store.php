@@ -111,6 +111,14 @@ get_header( 'shop' );
       				echo "<p>".$str."</p>";
     				}
                 }
+                if( !empty($store_info['company_values'] )) {
+          		echo '<h3>Company Values</h3>';
+          		$newcval = explode("\n",$store_info['company_values']);
+
+              foreach($newcval as $strcval) {
+              echo "<p>".$strcval."</p>";
+          
+        }
 				
 
 		/* Indiviual chefs are not wanted right now
