@@ -13,7 +13,6 @@ $store_info   = $store_user->get_shop_info();
 $map_location = $store_user->get_location();
 $social_info   = $store_user->get_social_profiles();
 $social_fields = dokan_get_social_profile_fields();
-$vendor_info = dokan_get_store_info( $author->ID );
 $dokan_appearance = get_option( 'dokan_appearance' );
 $profile_layout   = empty( $dokan_appearance['store_header_template'] ) ? 'default' : $dokan_appearance['store_header_template'];
 $store_address    = dokan_get_seller_short_address( $store_user->get_id(), false );
