@@ -113,10 +113,10 @@ get_header( 'shop' );
                 }
                 if( !empty($store_info['company_values'] )) {
           		echo '<h3>Company Values</h3>';
-          		$newcval = explode("\n",$store_info['company_values']);
+          		$newarr = explode("\n",$store_info['company_values']);
 
-              foreach($newcval as $strcval) {
-              echo "<p>".$strcval."</p>";
+              foreach($newarr as $str) {
+              echo "<p>".$str."</p>";
           
         }
 				
