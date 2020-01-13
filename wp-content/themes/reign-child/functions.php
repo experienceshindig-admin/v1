@@ -63,7 +63,7 @@ add_filter( 'dokan_query_var_filter', 'dokan_load_document_menu' );
 function dokan_load_document_menu( $query_vars ) {
     $query_vars['menus'] = 'menus';
 	$query_vars['chefs'] = 'chefs';
-	$query_vars['shindigs'] = 'shindigs';
+
 	$query_vars['calendar'] = 'calendar';
     return $query_vars;
 
@@ -76,12 +76,7 @@ function dokan_add_menus_menu( $urls ) {
         'url'   => dokan_get_navigation_url( 'menus' ),
         'pos'   => 51
     );
-    $urls['menus'] = array(
-        'title' => __( 'Shindigs', 'dokan'),
-        'icon'  => '<i class="fa fa-calendar-alt"></i>',
-        'url'   => dokan_get_navigation_url( 'shindigs' ),
-        'pos'   => 50
-    );
+ 
 /*  Not using Per-Chef functionality right now, currently broken
 	$urls['chefs'] = array(
         'title' => __( 'Our Chefs', 'dokan'),
@@ -104,8 +99,7 @@ function dokan_load_template( $query_vars ) {
         require_once dirname( __FILE__ ). '/menu.php';
 
     }
-    if ( isset( $query_vars['shindigs'] ) ) {
-        require_once dirname( __FILE__ ). '/shindigs.php';
+
 
     }
 	if ( isset( $query_vars['chefs'] ) ) {
