@@ -42,7 +42,7 @@ get_header( 'shop' );
 						echo '<li><span class="fa-li"><i class="fa fa-certificate"></i></span> <strong>Achievements:</strong> '.$store_info['certificates'].'</li>';
 					}
 					$seller_id  = (int) get_query_var( 'author' );
-					echo '<li><span class="fa-li"><i class="fa fa-cutlery"></i></span><strong>Specialties:</strong> ';
+					echo '<li><span class="fa-li"><i class="fa fa-cutlery"></i></span><strong>Vendor Type:</strong> ';
 					echo dokan_store_category_menu( $seller_id, $title );
 					echo '</li>';
 
