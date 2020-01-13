@@ -35,8 +35,8 @@ get_header( 'shop' );
 				<?php
 					echo '<ul class="fa-ul vendor-icons dokan-store-info">';
 
-					if( !empty($store_info['years_of_experience'] )) {
-						echo '<li><span class="fa-li"><i class="fa fa-check"></i></span> <strong>Years Experience:</strong> '.$store_info['years_of_experience'].'</li>';
+					if( !empty($store_info['business_since'] )) {
+						echo '<li><span class="fa-li"><i class="fa fa-check"></i></span> <strong>Doing Business Since:</strong> '.$store_info['business_since'].'</li>';
 					}
 					if( !empty($store_info['certificates'] )) {
 						echo '<li><span class="fa-li"><i class="fa fa-certificate"></i></span> <strong>Achievements:</strong> '.$store_info['certificates'].'</li>';
@@ -90,8 +90,7 @@ get_header( 'shop' );
                         <h1 class="store-name"><?php echo esc_html( $store_user->get_shop_name() ); ?></h1>
                     <?php }
 			echo '<div class="subhead-cat">';
-            echo $store_info['cuisine_spec'];
-            
+            echo dokan_store_category_menu( $seller_id, $title );
 			echo '</div>';
 			echo '<a class="venobox button" data-vbtype="inline" href="#contactvendor">Contact</a>';
 			echo '<div id="contactvendor" style="display:none;">';
@@ -119,7 +118,14 @@ get_header( 'shop' );
       				echo "<p>".$str."</p>";
     				}
                 }
-                
+                if ( ! empty( $store_info['company_specialties'] )) {
+					echo '<h3 class="headline">'. apply_filters( 'dokan_vendor_biography_title', __( 'Specialties', 'dokan' ) ).'</h3>';
+                    $newarr = explode("\n",$store_info['company_specialties']);
+
+      				foreach($newarr as $str) {
+      				echo "<p>".$str."</p>";
+    				}
+                }
 				
 
 		/* Indiviual chefs are not wanted right now
