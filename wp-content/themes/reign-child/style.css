@@ -688,7 +688,7 @@ li.parent-cat-wrap a:after{
 	content:',';
 }
 li.parent-cat-wrap:last-child a:after{
-	content:' ';
+	display:none;
 }
 .subhead-cat ul li a{
 	color:#262626;
