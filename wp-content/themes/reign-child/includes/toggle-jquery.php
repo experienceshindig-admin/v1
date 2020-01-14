@@ -23,7 +23,10 @@ jQuery(document).ready(function($){
          $(".read-more").click(function(e) {
             e.preventDefault();
             $(".woocommerce-product-details__short-description .truncated").toggle();
-            $(".woocommerce-product-details__short-description p").toggle();
+            $(".woocommerce-product-details__short-description p:nth-child(2)").toggle();
+            $(".woocommerce-product-details__short-description p:nth-child(3)").toggle();
+            $(".woocommerce-product-details__short-description p:nth-child(4)").toggle();
+            $(".woocommerce-product-details__short-description p:nth-child(5)").toggle();
          });
  
       });
