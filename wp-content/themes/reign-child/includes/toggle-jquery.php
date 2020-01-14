@@ -8,14 +8,14 @@
 add_action( 'wp_footer', function () { ?>
 	<script>
 jQuery(document).ready(function () {
-if (jQuery(".biowrapper").height() > 207) {
+if (jQuery(".biowrapper").height() > 156) {
 jQuery('.biowrapper').find('a[href="#"]').on('click', function (e) {
     e.preventDefault();
     this.expand = !this.expand;
     jQuery(this).text(this.expand?"Click to collapse":"Click to read more");
     jQuery(this).closest('.biowrapper').find('.biosmall, .biobig').toggleClass('biosmall biobig');
 });
-} else if (jQuery(".biowrapper").height() <= 207) {
+} else if (jQuery(".biowrapper").height() <= 156) {
 jQuery( ".biolink" ).hide();
 jQuery(".biosmall").removeClass('biosmall').addClass('biobig');
 }
