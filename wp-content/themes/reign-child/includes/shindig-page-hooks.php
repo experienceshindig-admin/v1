@@ -233,7 +233,7 @@ function woocommerce_template_single_vendor_info() {
 				if ( ! empty( $store_info['vendor_biography'] )) {
                     
 					echo '<div class="more">';
-      				echo wp_strip_all_tags($store_info['vendor_biography']);
+      				echo $store_info['vendor_biography'];
 					echo '</div>';
                 }
 					
@@ -618,7 +618,7 @@ echo '<div class="clear"></div>';
 	echo '<div class="add-info">';
 	echo '<h1>Terms</h1>';
 	echo '<div class="more">';
-	echo wp_strip_all_tags( get_the_content() );
+	echo get_the_content();
 	echo '</div>';
 	 ?>
  
