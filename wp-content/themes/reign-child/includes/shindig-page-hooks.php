@@ -232,9 +232,8 @@ function woocommerce_template_single_vendor_info() {
 					
 				if ( ! empty( $store_info['vendor_biography'] )) {
                     
-					echo '<div class="more">';
-      				echo $store_info['vendor_biography'];
-					echo '</div>';
+      				echo wp_trim_words($store_info['vendor_biography'],100,'[...]');
+
                 }
 					
 					echo '<div class="vendor-icons">';
@@ -604,7 +603,7 @@ function custom_single_excerpt(){
 	echo '<div class="clear"></div>';
 	echo '<h1>About Event</h1>';
     echo '<div class="woocommerce-product-details__short-description">';
-	echo $short_description; // WPCS: XSS ok.
+	echo wp_trim_words( $short_description, 400, '[...]' ); // WPCS: XSS ok.
     echo '</div>';
     
 }
@@ -617,9 +616,7 @@ echo '<div class="clear"></div>';
 	
 	echo '<div class="add-info">';
 	echo '<h1>Terms</h1>';
-	echo '<div class="more">';
-	echo get_the_content();
-	echo '</div>';
+	echo wp_trim_words(the_content(),100,'[...]');
 	 ?>
  
 <div class="policy">
