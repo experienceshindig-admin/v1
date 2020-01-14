@@ -9,7 +9,7 @@ add_action( 'wp_footer', function () { ?>
 	<script>
 jQuery(document).ready(function($){
           
-         var show_char = 1500;
+         var show_char = 150;
          var ellipses = "... ";
          var content = $(".woocommerce-product-details__short-description").html();
           
