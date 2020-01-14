@@ -231,15 +231,19 @@ function woocommerce_template_single_vendor_info() {
 			
 					
 				if ( ! empty( $store_info['vendor_biography'] )) {
-                    
-      				echo wp_trim_words($store_info['vendor_biography'],100,'<a href="" class="morelink">... Read More</a>');
+                    echo '<div class="biowrapper">';
+                    echo '<div class="biosmall">';
+      				echo $store_info['vendor_biography'];
+      				echo '</div>';
+      				echo '<a href="#" class="biolink">Click to read more</a>';
+      				echo '</div>';
 
                 }
 					
 					echo '<div class="vendor-icons">';
 					
-					if( !empty($store_info['years_of_experience'] )) { 
-						echo '<div><i class="fa fa-check"></i> <strong>Years Experience:</strong> '.$store_info['years_of_experience'].'</div>';
+					if( !empty($store_info['business_since'] )) { 
+						echo '<div><i class="fa fa-check"></i> <strong>Doing Business Since:</strong> '.$store_info['business_since'].'</div>';
 					}
 					if( !empty($store_info['response_time'] )) { 
 						echo '<div><i class="fa fa-comment"></i> <strong>Response Time:</strong> '.$store_info['response_time'].'</div>';
@@ -602,9 +606,13 @@ function custom_single_excerpt(){
         return;
 	echo '<div class="clear"></div>';
 	echo '<h1>About Event</h1>';
-    echo '<div class="woocommerce-product-details__short-description">';
-	echo wp_trim_words( $short_description, 400, '<a href="" class="morelink">... Read More</a>' ); // WPCS: XSS ok.
+	echo '<div class="sdwrapper">';
+    echo '<div class="sdsmall">';
+    echo $short_description;
     echo '</div>';
+    echo '<a href="#" class="sdlink">Click to read more</a>';
+    echo '</div>';
+
     
 }
 // Add Calendar 7
@@ -616,7 +624,13 @@ echo '<div class="clear"></div>';
 	
 	echo '<div class="add-info">';
 	echo '<h1>Terms</h1>';
-	echo wp_trim_words(the_content(),100,'<a href="" class="morelink">... Read More</a>');
+	echo '<div class="ldwrapper">';
+    echo '<div class="ldsmall">';
+    echo the_content();
+    echo '</div>';
+    echo '<a href="#" class="ldlink">Click to read more</a>';
+    echo '</div>';
+	
 	 ?>
  
 <div class="policy">
