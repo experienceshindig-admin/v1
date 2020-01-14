@@ -227,7 +227,7 @@ function woocommerce_template_single_vendor_info() {
         if ( $store_info['vendor_biography']||$store_info['years_of_experience']||$store_info['response_time']||$store_info['certificates'] ) { 
       		echo '<h1>About '.$store_info['store_name'].'</h1>';
 		 }
-			echo '<div class="shindig-vendor">';
+			
 			
 					
 				if ( ! empty( $store_info['vendor_biography'] )) {
@@ -251,7 +251,7 @@ function woocommerce_template_single_vendor_info() {
 					if( !empty($store_info['certificates'] )) { 
 						echo '<div><i class="fa fa-certificate"></i> <strong>Achievements:</strong> '.$store_info['certificates'].'</div>';
 					} 
-					echo '</div>';
+					
 }
 
 add_action( 'woocommerce_after_single_product_summary', 'woocommerce_template_single_menu', 5 );
