@@ -15,7 +15,7 @@ jQuery('.biowrapper').find('a[href="#"]').on('click', function (e) {
     jQuery(this).text(this.expand?"Click to collapse":"Click to read more");
     jQuery(this).closest('.biowrapper').find('.biosmall, .biobig').toggleClass('biosmall biobig');
 });
-} else {
+} else if (jQuery(".biowrapper").height() < 149) {
 jQuery( ".biolink" ).hide();
 jQuery(".biosmall").removeClass('biosmall').addClass('biobig');
 }
@@ -28,7 +28,7 @@ jQuery('.sdwrapper').find('a[href="#"]').on('click', function (e) {
     jQuery(this).text(this.expand?"Click to collapse":"Click to read more");
     jQuery(this).closest('.sdwrapper').find('.sdsmall, .sdbig').toggleClass('sdsmall sdbig');
 });
-} else {
+} else if (jQuery(".sdwrapper").height() < 149){
 jQuery( ".sdlink" ).hide();
 jQuery(".sdsmall").removeClass('sdsmall').addClass('sdbig');
 }
@@ -41,7 +41,7 @@ jQuery('.ldwrapper').find('a[href="#"]').on('click', function (e) {
     jQuery(this).text(this.expand?"Click to collapse":"Click to read more");
     jQuery(this).closest('.ldwrapper').find('.ldsmall, .ldbig').toggleClass('ldsmall ldbig');
 });
-} else {
+} else if (jQuery(".ldwrapper").height() < 149) {
 jQuery( ".ldlink" ).hide();
 jQuery(".ldsmall").removeClass('ldsmall').addClass('ldbig');
 }
