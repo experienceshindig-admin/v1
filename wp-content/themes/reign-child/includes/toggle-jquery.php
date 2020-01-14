@@ -5,45 +5,49 @@
  *
  * This is an example snippet for demonstrating how to add custom JavaScript code to your website. You can remove it, or edit it to add your own content.
  */
-add_action( 'wp_head', function () { ?>
+add_action( 'wp_footer', function () { ?>
 	<script>
-
-		jQuery(document).ready(function() {
-    // Configure/customize these variables.
-    var showChar = 150;  // How many characters are shown by default
-    var ellipsestext = "...";
-    var moretext = "more &raquo;";
-    var lesstext = "Show less";
-    
-
-    jQuery('.more').each(function() {
-        var content = jQuery(this).html();
- 
-        if(content.length > showChar) {
- 
-            var c = content.substr(0, showChar);
-            var h = content.substr(showChar, content.length - showChar);
- 
-            var html = c + '<span class="moreellipses">' + ellipsestext+ '&nbsp;</span><span class="morecontent"><span>' + h + '</span><a href="" class="morelink">' + moretext + '</a></span>';
- 
-            jQuery(this).html(html);
-        }
- 
-    });
- 
-    jQuery(".morelink").click(function(){
-        if(jQuery(this).hasClass("less")) {
-            jQuery(this).removeClass("less");
-            jQuery(this).html(moretext);
-        } else {
-            jQuery(this).addClass("less");
-            jQuery(this).html(lesstext);
-        }
-        jQuery(this).parent().prev().toggle();
-        jQuery(this).prev().toggle();
-        return false;
-    });
+jQuery(document).ready(function () {
+if (jQuery(".biowrapper").height() > 150) {
+jQuery('.biowrapper').find('a[href="#"]').on('click', function (e) {
+    e.preventDefault();
+    this.expand = !this.expand;
+    jQuery(this).text(this.expand?"Click to collapse":"Click to read more");
+    jQuery(this).closest('.biowrapper').find('.biosmall, .biobig').toggleClass('biosmall biobig');
 });
+} else {
+jQuery( ".biolink" ).hide();
+jQuery(".biosmall").removeClass('biosmall').addClass('biobig');
+}
+});
+jQuery(document).ready(function () {
+if (jQuery(".sdwrapper").height() > 150) {
+jQuery('.sdwrapper').find('a[href="#"]').on('click', function (e) {
+    e.preventDefault();
+    this.expand = !this.expand;
+    jQuery(this).text(this.expand?"Click to collapse":"Click to read more");
+    jQuery(this).closest('.sdwrapper').find('.sdsmall, .sdbig').toggleClass('sdsmall sdbig');
+});
+} else {
+jQuery( ".sdlink" ).hide();
+jQuery(".sdsmall").removeClass('sdsmall').addClass('sdbig');
+}
+});
+jQuery(document).ready(function () {
+if (jQuery(".ldwrapper").height() > 150) {
+jQuery('.ldwrapper').find('a[href="#"]').on('click', function (e) {
+    e.preventDefault();
+    this.expand = !this.expand;
+    jQuery(this).text(this.expand?"Click to collapse":"Click to read more");
+    jQuery(this).closest('.ldwrapper').find('.ldsmall, .ldbig').toggleClass('ldsmall ldbig');
+});
+} else {
+jQuery( ".ldlink" ).hide();
+jQuery(".ldsmall").removeClass('ldsmall').addClass('ldbig');
+}
+});
+
+
 
 	</script>
 <?php } );
