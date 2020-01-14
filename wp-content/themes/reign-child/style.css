@@ -280,7 +280,12 @@ footer .social-icons a {
 	display:inline-block;
 	margin:0;
 }
-.biosmall, .sdsmall, .ldsmall {
+.biosmall {
+	 height: 100px;
+    overflow:hidden;
+}
+
+.sdsmall, .ldsmall {
     height: 150px;
     overflow:hidden;
 }
