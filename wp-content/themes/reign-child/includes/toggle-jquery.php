@@ -23,6 +23,7 @@ jQuery(document).ready(function($){
          $(".read-more").click(function(e) {
             e.preventDefault();
             $(".woocommerce-product-details__short-description .truncated").toggle();
+            $(".woocommerce-product-details__short-description p").toggle();
          });
  
       });
