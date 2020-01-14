@@ -280,11 +280,12 @@ footer .social-icons a {
 	display:inline-block;
 	margin:0;
 }
-.more {
-	margin-bottom:20px;
+.biosmall, .sdsmall, .ldsmall {
+    height: 150px;
+    overflow:hidden;
 }
-.morecontent span {
-	display: none;
+.biobig, .sdbig, .ldbig {
+    height: auto;
 }
 .morelink, .report-shindig {
 	display: inline-block;

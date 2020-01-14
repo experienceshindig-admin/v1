@@ -7,48 +7,47 @@
  */
 add_action( 'wp_footer', function () { ?>
 	<script>
-jQuery(document).ready(function($){
-          
-         var show_char = 150;
-         var ellipses = "... ";
-         var content = $(".woocommerce-product-details__short-description").html();
-          
-         if (content.length > show_char) {
-            var a = content.substr(0, show_char);
-            var b = content.substr(show_char - content.length);
-            var html = a + '<span class="truncated">' + ellipses + '<a href="" class="read-more">Read more</a></span><span class="truncated" style="display:none">' + b + '</span>';
-            $(".woocommerce-product-details__short-description").html(html);
-         }
- 
-         $(".read-more").click(function(e) {
-            e.preventDefault();
-            $(".woocommerce-product-details__short-description .truncated").toggle();
-            $(".woocommerce-product-details__short-description p:nth-child(2)").toggle();
-            $(".woocommerce-product-details__short-description p:nth-child(3)").toggle();
-            $(".woocommerce-product-details__short-description p:nth-child(4)").toggle();
-            $(".woocommerce-product-details__short-description p:nth-child(5)").toggle();
-         });
- 
-      });
-	jQuery(document).ready(function($){
-          
-         var show_char = 150;
-         var ellipses = "... ";
-         var content = $(".more").html();
-          
-         if (content.length > show_char) {
-            var a = content.substr(0, show_char);
-            var b = content.substr(show_char - content.length);
-            var html = a + '<span class="truncated">' + ellipses + '<a href="" class="read-more">Read more</a></span><span class="truncated" style="display:none">' + b + '</span>';
-            $(".more").html(html);
-         }
- 
-         $(".read-more").click(function(e) {
-            e.preventDefault();
-            $(".more .truncated").toggle();
-         });
- 
-      });
+jQuery(document).ready(function () {
+if (jQuery(".biowrapper").height() > 150) {
+jQuery('.biowrapper').find('a[href="#"]').on('click', function (e) {
+    e.preventDefault();
+    this.expand = !this.expand;
+    jQuery(this).text(this.expand?"Click to collapse":"Click to read more");
+    jQuery(this).closest('.biowrapper').find('.biosmall, .biobig').toggleClass('biosmall biobig');
+});
+} else {
+jQuery( ".biolink" ).hide();
+jQuery(".biosmall").removeClass('biosmall').addClass('biobig');
+}
+});
+jQuery(document).ready(function () {
+if (jQuery(".sdwrapper").height() > 150) {
+jQuery('.sdwrapper').find('a[href="#"]').on('click', function (e) {
+    e.preventDefault();
+    this.expand = !this.expand;
+    jQuery(this).text(this.expand?"Click to collapse":"Click to read more");
+    jQuery(this).closest('.sdwrapper').find('.sdsmall, .sdbig').toggleClass('sdsmall sdbig');
+});
+} else {
+jQuery( ".sdlink" ).hide();
+jQuery(".sdsmall").removeClass('sdsmall').addClass('sdbig');
+}
+});
+jQuery(document).ready(function () {
+if (jQuery(".ldwrapper").height() > 150) {
+jQuery('.ldwrapper').find('a[href="#"]').on('click', function (e) {
+    e.preventDefault();
+    this.expand = !this.expand;
+    jQuery(this).text(this.expand?"Click to collapse":"Click to read more");
+    jQuery(this).closest('.ldwrapper').find('.ldsmall, .ldbig').toggleClass('ldsmall ldbig');
+});
+} else {
+jQuery( ".ldlink" ).hide();
+jQuery(".ldsmall").removeClass('ldsmall').addClass('ldbig');
+}
+});
+
+
 
 	</script>
 <?php } );
