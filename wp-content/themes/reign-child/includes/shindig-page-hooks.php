@@ -1,4 +1,4 @@
-<?php
+{<?php
 
 /**
  * Shindig Page Hooks
@@ -232,7 +232,7 @@ function woocommerce_template_single_vendor_info() {
 					
 				if ( ! empty( $store_info['vendor_biography'] )) {
                     
-      				echo wp_trim_words($store_info['vendor_biography'],100,'[...]');
+      				echo wp_trim_words($store_info['vendor_biography'],100,'<a href="" class="morelink">... Read More</a>');
 
                 }
 					
@@ -603,7 +603,7 @@ function custom_single_excerpt(){
 	echo '<div class="clear"></div>';
 	echo '<h1>About Event</h1>';
     echo '<div class="woocommerce-product-details__short-description">';
-	echo wp_trim_words( $short_description, 400, '[...]' ); // WPCS: XSS ok.
+	echo wp_trim_words( $short_description, 400, '<a href="" class="morelink">... Read More</a>' ); // WPCS: XSS ok.
     echo '</div>';
     
 }
@@ -616,7 +616,7 @@ echo '<div class="clear"></div>';
 	
 	echo '<div class="add-info">';
 	echo '<h1>Terms</h1>';
-	echo wp_trim_words(the_content(),100,'[...]');
+	echo wp_trim_words(the_content(),100,'<a href="" class="morelink">... Read More</a>');
 	 ?>
  
 <div class="policy">
