@@ -8,7 +8,7 @@
 add_action( 'wp_footer', function () { ?>
 	<script>
 jQuery(document).ready(function () {
-if (jQuery(".biowrapper").height() > 207 {
+if (jQuery(".biowrapper").height() > 207) {
 jQuery('.biowrapper').find('a[href="#"]').on('click', function (e) {
     e.preventDefault();
     this.expand = !this.expand;
