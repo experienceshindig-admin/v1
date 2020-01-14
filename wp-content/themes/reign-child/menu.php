@@ -166,7 +166,7 @@ div#tab-1 table thead tr th,div#tab-1 table tbody tr td {
 	</style>
         <article class="menu-content-area">
         <header class="dokan-dashboard-header">
-    		<h1 class="entry-title">Menu Items</h1>
+    		<h1 class="entry-title">Menu &amp; Service Items</h1>
 		</header>
 		
 	
@@ -174,8 +174,8 @@ div#tab-1 table thead tr th,div#tab-1 table tbody tr td {
           		<div class="contain">
 
 	<ul class="tabs">
-		<li class="button tab-link current" data-tab="tab-1"><button>Menu Item Listing</button></li>
-		<li class="button tab-link" data-tab="tab-2"><button>Add New Menu Item</button></li>
+		<li class="button tab-link current" data-tab="tab-1"><button>Menu/Service Item Listing</button></li>
+		<li class="button tab-link" data-tab="tab-2"><button>Add New Menu/Service Item</button></li>
 	</ul>
 	
 	 <?php
@@ -221,13 +221,13 @@ div#tab-1 table thead tr th,div#tab-1 table tbody tr td {
         	 update_field( 's_diets_edit', $_POST['s_diets'], $post_id );
 			 update_field( 'course_type_edit', $_POST['course_type'], $post_id );
 			  
-        	 $message = 'Menu Item has been updated';
+        	 $message = 'Menu/Service Item has been updated';
         	 $alert = 'alert-success';
 	     }
 	 }
      if($_GET && isset($_GET['destroy_post'])){
 	      wp_delete_post($_GET['destroy_post']);
-          $message = 'Menu Item has been deleted';
+          $message = 'Menu/Service Item has been deleted';
           $alert = 'alert-success';
 	  }	 
 	 //GET POST DATA
@@ -255,7 +255,7 @@ div#tab-1 table thead tr th,div#tab-1 table tbody tr td {
 		<table>
             <thead>
                 <tr>
-                    <th>Menu Item Name</th>
+                    <th>Menu/Service Item Name</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -284,7 +284,7 @@ div#tab-1 table thead tr th,div#tab-1 table tbody tr td {
                 <tr>
                     <td><div class="dash-menu-img"><?=$img?></div><?=ucwords($value->post_title)?></td>
                     <td><a class="ajax-edit" data-toggle="modal" data-target="#myModal" data-post="<?=$value->ID?>" data-title="<?=$value->post_title?>" data-ing="<?=$value->post_content?>" data-img="<?=$img_url?>" data-diet="<?=$s_diet?>" data-course-type="<?=$course?>" data-cat='[<?=$cats?>]' style="color:green;cursor:pointer">Edit</a> | 
-                    <a href="https://experienceshindig.com/dashboard/menus/?destroy_post=<?=$value->ID?>" class="delete-post" onclick="return confirm('Are you sure you want to delete this menu item?');" style="color:red;cursor:pointer">Delete</a>
+                    <a href="https://experienceshindig.com/dashboard/menus/?destroy_post=<?=$value->ID?>" class="delete-post" onclick="return confirm('Are you sure you want to delete this menu/service item?');" style="color:red;cursor:pointer">Delete</a>
                     </td>
                 </tr>
                 <?php
@@ -293,7 +293,7 @@ div#tab-1 table thead tr th,div#tab-1 table tbody tr td {
                 }else{
                 ?>
                  <tr>
-                    <td colspan="2" style="text-align: center;"><h3>No Menu Items Found!</h3></td>
+                    <td colspan="2" style="text-align: center;"><h3>No Menu/Service Items Found!</h3></td>
                  </tr>
                 <?php
                 }
@@ -306,7 +306,7 @@ div#tab-1 table thead tr th,div#tab-1 table tbody tr td {
 		     <form method='POST' enctype="multipart/form-data" id="menu_form">
 		         <div class="form-group">
 		             <div class="col-md-2">
-		                 <label>Menu Item Name *</label>
+		                 <label>Menu/Service Item Name *</label>
 		             </div>
 		             <div class="col-md-10"> 
 		                 <input type="text" placeholder="Menu Item Name" name="menu_name" class="form-control input_field" required/>
@@ -322,7 +322,7 @@ div#tab-1 table thead tr th,div#tab-1 table tbody tr td {
 		         </div>
 				 <div class="form-group">
 		             <div class="col-md-2">
-		                 <label for="images">Menu Item Picture *</label>
+		                 <label for="images">Menu/Service Item Picture *</label>
 						 
 		             </div>
 		             <div class="col-md-10">
@@ -406,14 +406,14 @@ div#tab-1 table thead tr th,div#tab-1 table tbody tr td {
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Edit Menu Item</h4>
+          <h4 class="modal-title">Edit Menu/Service Item</h4>
         </div>
         <div class="modal-body">
            <div class="add-new-menu-section-popup">
 		     <form method='POST' enctype="multipart/form-data" id="menu_form_edit">
 		         <div class="form-group">
 		             <div class="col-md-4">
-		                 <label>Menu Item Name *</label>
+		                 <label>Menu/Service Item Name *</label>
 		             </div>
 		             <div class="col-md-8"> 
 		                 <input type="text" placeholder="Menu Item Name" id="edit-title" name="menu_name_edit" class="form-control input_field" required/>
@@ -429,7 +429,7 @@ div#tab-1 table thead tr th,div#tab-1 table tbody tr td {
 		         </div>
 				 <div class="form-group">
 		             <div class="col-md-4">
-		                 <label>Menu Item's Picture</label>
+		                 <label>Menu/Service Item's Picture</label>
 						 <div class="dash-menu-img"><img id="edit-img" /></div>
 		             </div>
 		             <div class="col-md-8">

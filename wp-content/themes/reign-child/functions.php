@@ -71,7 +71,7 @@ function dokan_load_document_menu( $query_vars ) {
 add_filter( 'dokan_get_dashboard_nav', 'dokan_add_menus_menu' );
 function dokan_add_menus_menu( $urls ) {
     $urls['menus'] = array(
-        'title' => __( 'Menu', 'dokan'),
+        'title' => __( 'Menu & Services', 'dokan'),
         'icon'  => '<i class="fa fa-cutlery"></i>',
         'url'   => dokan_get_navigation_url( 'menus' ),
         'pos'   => 51
