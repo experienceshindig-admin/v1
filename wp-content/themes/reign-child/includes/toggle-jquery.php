@@ -26,42 +26,25 @@ jQuery(document).ready(function($){
          });
  
       });
-		jQuery(document).ready(function() {
-    // Configure/customize these variables.
-    var showChar = 150;  // How many characters are shown by default
-    var ellipsestext = "...";
-    var moretext = "more &raquo;";
-    var lesstext = "Show less";
-    
-
-    jQuery('.more').each(function() {
-        var content = jQuery(this).html();
+	jQuery(document).ready(function($){
+          
+         var show_char = 150;
+         var ellipses = "... ";
+         var content = $(".more").html();
+          
+         if (content.length > show_char) {
+            var a = content.substr(0, show_char);
+            var b = content.substr(show_char - content.length);
+            var html = a + '<span class="truncated">' + ellipses + '<a href="" class="read-more">Read more</a></span><span class="truncated" style="display:none">' + b + '</span>';
+            $(".more").html(html);
+         }
  
-        if(content.length > showChar) {
+         $(".read-more").click(function(e) {
+            e.preventDefault();
+            $(".more .truncated").toggle();
+         });
  
-            var c = content.substr(0, showChar);
-            var h = content.substr(showChar, content.length - showChar);
- 
-            var html = c + '<span class="moreellipses">' + ellipsestext+ '&nbsp;</span><span class="morecontent"><span>' + h + '</span><a href="" class="morelink">' + moretext + '</a></span>';
- 
-            jQuery(this).html(html);
-        }
- 
-    });
- 
-    jQuery(".morelink").click(function(){
-        if(jQuery(this).hasClass("less")) {
-            jQuery(this).removeClass("less");
-            jQuery(this).html(moretext);
-        } else {
-            jQuery(this).addClass("less");
-            jQuery(this).html(lesstext);
-        }
-        jQuery(this).parent().prev().toggle();
-        jQuery(this).prev().toggle();
-        return false;
-    });
-});
+      });
 
 	</script>
 <?php } );
