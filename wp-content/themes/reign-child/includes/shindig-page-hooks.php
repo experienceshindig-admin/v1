@@ -604,7 +604,7 @@ function custom_single_excerpt(){
 	echo '<div class="clear"></div>';
 	echo '<h1>About Event</h1>';
     echo '<div class="woocommerce-product-details__short-description">';
-	echo '<div class="more">' . strip_tags($short_description) . '</div>'; // WPCS: XSS ok.
+	echo $short_description; // WPCS: XSS ok.
     echo '</div>';
     
 }
