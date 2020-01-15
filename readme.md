@@ -30,7 +30,7 @@ You will need the following:
 6. Once logged in to your local, you need to recreate Elementor layouts.
 Go to Elementor > Tools > General > Regenerate Files 
 7. Elementor also has a Replace URLs tab to update any missed rows. 
-
+8. You will want to delete the plugin really-simple-ssl
 
 ## Contributing
  1. Create a branch 
