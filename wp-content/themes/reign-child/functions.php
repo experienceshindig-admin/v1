@@ -203,3 +203,29 @@ function setup(PHPMailer $phpmailer)
     $phpmailer->Port = 1025;
     $phpmailer->IsSMTP();
 }
+
+
+add_action('wp_footer', 'add_email_tracker');
+function add_email_tracker() {
+    if (0 == get_option('blog_public')) {
+        // Site is hidden
+        return false;
+    }
+    if(
+        $_SERVER['SERVER_ADDR'] == '127.0.0.1'
+        || $_SERVER['SERVER_ADDR'] == '::1'
+        || $_SERVER['SERVER_NAME'] == 'localhost'
+        ) {
+            // Site is local
+            return false;
+    }
+
+    echo <<< EOL
+<script type="text/javascript">
+(function(e,t,o,n,p,r,i){e.visitorGlobalObjectAlias=n;e[e.visitorGlobalObjectAlias]=e[e.visitorGlobalObjectAlias]||function(){(e[e.visitorGlobalObjectAlias].q=e[e.visitorGlobalObjectAlias].q||[]).push(arguments)};e[e.visitorGlobalObjectAlias].l=(new Date).getTime();r=t.createElement("script");r.src=o;r.async=true;i=t.getElementsByTagName("script")[0];i.parentNode.insertBefore(r,i)})(window,document,"https://diffuser-cdn.app-us1.com/diffuser/diffuser.js","vgo");
+vgo('setAccount', '224126993');
+vgo('setTrackByDefault', true);
+vgo('process');
+</script>
+EOL;
+}
