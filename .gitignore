@@ -1,12 +1,16 @@
 # ignore everything in the root except the "wp-content" directory.
 /*
 !wp-content/
+!php-ini/
 
 # track this file .gitignore (i.e. do NOT ignore it)
 !.gitignore
 
 # track readme.md in the root (i.e. do NOT ignore it)
 !readme.md
+
+# track docker
+!docker-compose.yml
 
 # ignore everything in the "wp-content" directory, except:
 # mu-plugins, plugins, and themes directories
