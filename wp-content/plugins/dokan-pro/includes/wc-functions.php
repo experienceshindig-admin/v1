@@ -1593,7 +1593,7 @@ add_action( 'woocommerce_save_product_variation', 'dokan_override_variation_prod
 /**
  * Dokan enabble single seller mode
  *
- * @since  2.9.15
+ * @since  2.9.16
  *
  * @param  bool $valid
  * @param  int $product_id
@@ -1601,7 +1601,8 @@ add_action( 'woocommerce_save_product_variation', 'dokan_override_variation_prod
  * @return bool
  */
 function dokan_validate_cart_for_single_seller_mode( $valid, $product_id ) {
-    $is_single_seller_mode = apply_filters( 'dokan_signle_seller_mode', dokan_get_option( 'enable_single_seller_mode', 'dokan_general', 'off' ) );
+    $is_single_seller_mode = apply_filters_deprecated( 'dokan_signle_seller_mode', [ dokan_get_option( 'enable_single_seller_mode', 'dokan_general', 'off' ) ], 'DOKAN_PRO_SINCE', 'dokan_single_seller_mode' );
+    $is_single_seller_mode = apply_filters( 'dokan_single_seller_mode', $is_single_seller_mode );
 
     if ( ! dokan_validate_boolean( $is_single_seller_mode ) ) {
         return $valid;
@@ -1643,7 +1644,7 @@ add_filter( 'woocommerce_add_to_cart_validation', 'dokan_validate_cart_for_singl
 /**
  * Dokan rest validate single seller mode
  *
- * @since  2.9.15
+ * @since  2.9.16
  *
  * @param  WC_Order $order
  * @param  WP_REST_Request
@@ -1656,7 +1657,8 @@ function dokan_rest_validate_single_seller_mode( $order, $request, $creating ) {
         return $order;
     }
 
-    $is_single_seller_mode = apply_filters( 'dokan_signle_seller_mode', dokan_get_option( 'enable_single_seller_mode', 'dokan_general', 'off' ) );
+    $is_single_seller_mode = apply_filters_deprecated( 'dokan_signle_seller_mode', [ dokan_get_option( 'enable_single_seller_mode', 'dokan_general', 'off' ) ], 'DOKAN_PRO_SINCE', 'dokan_single_seller_mode' );
+    $is_single_seller_mode = apply_filters( 'dokan_single_seller_mode', $is_single_seller_mode );
 
     if ( ! dokan_validate_boolean( $is_single_seller_mode ) ) {
         return $order;

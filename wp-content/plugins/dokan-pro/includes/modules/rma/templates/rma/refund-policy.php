@@ -2,7 +2,7 @@
 /**
  * Dokan Refund Policy Single Product tab Template
  *
- * @since 2.9.15
+ * @since 2.9.16
  *
  * @package dokan
  */
