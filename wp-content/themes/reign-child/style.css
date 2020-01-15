@@ -442,6 +442,10 @@ h1.entry-title {
 	display:flex;
 	flex-wrap:wrap;
 }
+.menu>li {
+	max-width:33%;
+
+}
 .shindig-option {
 	width:50%;
 	height:40px;
@@ -489,8 +493,6 @@ ul.shindig-venue_requirements li {
 .menu>li {
 	margin-right:30px;
 	flex-grow:1;
-	max-width:33%;
-
 }
 .menu>li:last-child {
 	margin-right:0;
