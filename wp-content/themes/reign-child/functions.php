@@ -76,7 +76,7 @@ function dokan_add_menus_menu( $urls ) {
         'url'   => dokan_get_navigation_url( 'menus' ),
         'pos'   => 51
     );
- 
+
 /*  Not using Per-Chef functionality right now, currently broken
 	$urls['chefs'] = array(
         'title' => __( 'Our Chefs', 'dokan'),
@@ -194,4 +194,12 @@ function _remove_reviews_tab( $tabs ) {
 add_action( 'woocommerce_after_single_product_summary', '_show_reviews', 15 );
 function _show_reviews() {
     comments_template();
+}
+
+add_action('phpmailer_init', 'setup');
+function setup(PHPMailer $phpmailer)
+{
+    $phpmailer->Host = 'mailhog';
+    $phpmailer->Port = 1025;
+    $phpmailer->IsSMTP();
 }

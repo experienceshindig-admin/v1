@@ -51,7 +51,10 @@ services:
     # Useful for file edits
     # I like to map only wp-content
     # We should not care about WP core files
-    volumes: ["./wp-content:/var/www/html/wp-content"]
+    volumes: [
+      "./wp-content:/var/www/html/wp-content",
+      "./php-ini/php.ini:/var/www/html/php.ini"
+    ]
     # Add environment variables
     # https://docs.docker.com/compose/compose-file/#environment
     environment:
@@ -91,6 +94,17 @@ services:
       PMA_HOST: db
       MYSQL_ROOT_PASSWORD: password
     # List of networks to join
+    networks:
+      - wp
+
+  #Container 4
+  #
+  mailhog:
+    image: mailhog/mailhog
+    restart: always
+    ports:
+      - 1025:1025 # SMTP
+      - 8025:8025 # Web
     networks:
       - wp
 
