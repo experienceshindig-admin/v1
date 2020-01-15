@@ -5,7 +5,7 @@ Author: Wbcom Designs
 Author URI: https://wbcomdesigns.com/
 Description: Premium BuddyPress Theme with Elementor Page Builder support.
 Template: reign-theme
-Version: 1.0.2
+Version: 1.0.3
 License: GNU General Public License v2 or later
 License URI: LICENSE
 Text Domain: reign-child
@@ -281,12 +281,12 @@ footer .social-icons a {
 	margin:0;
 }
 .biosmall {
-	 height: 100px;
+	 max-height: 100px;
     overflow:hidden;
 }
 
 .sdsmall, .ldsmall {
-    height: 150px;
+    max-height: 150px;
     overflow:hidden;
 }
 .biobig, .sdbig, .ldbig {
