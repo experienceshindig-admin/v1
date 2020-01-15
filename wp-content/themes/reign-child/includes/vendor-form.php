@@ -49,14 +49,14 @@ $seller_url= isset( $profile_info['seller_url'] ) ? $profile_info['seller_url'] 
     <?php	
 			
 	//Years of Experience
-	$years_of_experience= isset( $profile_info['years_of_experience'] ) ? $profile_info['years_of_experience'] : '';
+	$business_since= isset( $profile_info['business_since'] ) ? $profile_info['business_since'] : '';
 ?>
  <div class="dokan-form-group">
-        <label class="dokan-w3 dokan-control-label" for="years_of_experience">
-            <?php _e( 'Years of Experience', 'dokan' ); ?>
+        <label class="dokan-w3 dokan-control-label" for="business_since">
+            <?php _e( 'Doing Business Since', 'dokan' ); ?>
         </label>
         <div class="dokan-w5">
-            <input type="number" class="dokan-form-control input-md valid" name="years_of_experience" id="reg_years_of_experience" value="<?php echo $years_of_experience; ?>" />
+            <input type="number" class="dokan-form-control input-md valid" name="business_since" id="reg_business_since" value="<?php echo $business_sincev; ?>" />
         </div>
     </div>
     <?php
@@ -133,79 +133,7 @@ $seller_url= isset( $profile_info['seller_url'] ) ? $profile_info['seller_url'] 
         </div>
     </div>
     <?php	
-	//Terms & Conditions
-	$terms_conditions = isset( $profile_info['terms_conditions'] ) ? $profile_info['terms_conditions'] : '';
-?>
- <div class="dokan-form-group">
-        <label class="dokan-w3 dokan-control-label" for="terms_conditions">
-            <?php _e( 'Terms &amp; Conditions', 'dokan' ); ?>
-        </label>
-        <div class="dokan-w5">
-            <textarea style="white-space: pre-wrap; min-height:150px;" class="input-md valid" name="terms_conditions" id="reg_terms_conditions" value="<?php echo $terms_conditions; ?>" ><?php echo $terms_conditions; ?></textarea>
-        </div>
-    </div>
-    <?php	
-	//Cancellation Policy
-	$cancellation = isset( $profile_info['cancellation'] ) ? $profile_info['cancellation'] : '';
-?>
- <div class="dokan-form-group">
-        <label class="dokan-w3 dokan-control-label" for="cancellation">
-            <?php _e( 'Cancellation Policy', 'dokan' ); ?>
-        </label>
-        <div class="dokan-w5">
-            <textarea style="white-space: pre-wrap; min-height:150px;" class="input-md valid" name="cancellation" id="reg_cancellation" value="<?php echo $cancellation; ?>"><?php echo $cancellation; ?></textarea>
-        </div>
-    </div>
-    <?php
-	//Communication Policy
-	$communication = isset( $profile_info['communication'] ) ? $profile_info['communication'] : '';
-?>
- <div class="dokan-form-group">
-        <label class="dokan-w3 dokan-control-label" for="communication">
-            <?php _e( 'Communication Policy', 'dokan' ); ?>
-        </label>
-        <div class="dokan-w5">
-            <textarea style="white-space: pre-wrap; min-height:150px;" class="input-md valid" name="communication" id="reg_communication" value="<?php echo $communication; ?>"><?php echo $communication; ?></textarea>
-        </div>
-    </div>
-    <?php
-	//Deposit / Guests
-	$deposit_guests = isset( $profile_info['deposit_guests'] ) ? $profile_info['deposit_guests'] : '';
-?>
- <div class="dokan-form-group">
-        <label class="dokan-w3 dokan-control-label" for="deposit_guests">
-            <?php _e( 'Deposit &amp; Guest List', 'dokan' ); ?>
-        </label>
-        <div class="dokan-w5">
-            <textarea style="white-space: pre-wrap; min-height:150px;" class="input-md valid" name="deposit_guests" id="reg_deposit_guests" value="<?php echo $deposit_guests; ?>"><?php echo $deposit_guests; ?></textarea>
-        </div>
-    </div>
-    <?php
 
-	//Tips & Tricks
-	$tips_tricks = isset( $profile_info['tips_tricks'] ) ? $profile_info['tips_tricks'] : '';
-?>
- <div class="dokan-form-group">
-        <label class="dokan-w3 dokan-control-label" for="tips_tricks">
-            <?php _e( 'Tips &amp; Tricks', 'dokan' ); ?>
-        </label>
-        <div class="dokan-w5">
-            <textarea style="white-space: pre-wrap; min-height:150px;" class="input-md valid" name="tips_tricks" id="reg_tips_tricks" value="<?php echo $tips_tricks; ?>"><?php echo $tips_tricks; ?></textarea>
-        </div>
-    </div>
-    <?php
-	//Alcohol Policy
-	$alcohol_policy = isset( $profile_info['alcohol_policy'] ) ? $profile_info['alcohol_policy'] : '';
-?>
- <div class="dokan-form-group">
-        <label class="dokan-w3 dokan-control-label" for="alcohol_policy">
-            <?php _e( 'Alcohol Policy', 'dokan' ); ?>
-        </label>
-        <div class="dokan-w5">
-            <textarea style="white-space: pre-wrap; min-height:150px;;" class="input-md valid" name="alcohol_policy" id="reg_alcohol_policy" value="<?php echo $alcohol_policy; ?>"><?php echo $alcohol_policy; ?></textarea>
-        </div>
-    </div>
-    <?php
 	//Company Values
 	$company_values= isset( $profile_info['company_values'] ) ? $profile_info['company_values'] : '';
 ?>
@@ -245,8 +173,8 @@ function save_extra_fields( $store_id ) {
 	}
 		//Years of Experience
 
-    if ( isset( $_POST['years_of_experience'] ) ) {
-        $dokan_settings['years_of_experience'] = $_POST['years_of_experience'];
+    if ( isset( $_POST['business_since'] ) ) {
+        $dokan_settings['business_since'] = $_POST['business_since'];
 	}
 		//Certificates
 
@@ -273,37 +201,7 @@ function save_extra_fields( $store_id ) {
     if ( isset( $_POST['alcohol_pairings'] ) ) {
         $dokan_settings['alcohol_pairings'] = implode(', ', $_POST['alcohol_pairings']);
     }
-	//Terms & Conditions
-
-    if ( isset( $_POST['terms_conditions'] ) ) {
-        $dokan_settings['terms_conditions'] = $_POST['terms_conditions'];
-    }
-	//Cancellation Policy
-
-    if ( isset( $_POST['cancellation'] ) ) {
-        $dokan_settings['cancellation'] = $_POST['cancellation'];
-    }
-	//Communication
-
-    if ( isset( $_POST['communication'] ) ) {
-        $dokan_settings['communication'] = $_POST['communication'];
-    }
-	//Deposit / Guests
-
-    if ( isset( $_POST['deposit_guests'] ) ) {
-        $dokan_settings['deposit_guests'] = $_POST['deposit_guests'];
-    }
-
-	//Tips & Tricks
-
-    if ( isset( $_POST['tips_tricks'] ) ) {
-        $dokan_settings['tips_tricks'] = $_POST['tips_tricks'];
-    }
-	//Alcohol Policy
-
-    if ( isset( $_POST['alcohol_policy'] ) ) {
-        $dokan_settings['alcohol_policy'] = $_POST['alcohol_policy'];
-    }
+	
  update_user_meta( $store_id, 'dokan_profile_settings', $dokan_settings );
 }
    
