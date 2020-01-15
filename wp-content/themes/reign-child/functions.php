@@ -76,7 +76,7 @@ function dokan_add_menus_menu( $urls ) {
         'url'   => dokan_get_navigation_url( 'menus' ),
         'pos'   => 51
     );
- 
+
 /*  Not using Per-Chef functionality right now, currently broken
 	$urls['chefs'] = array(
         'title' => __( 'Our Chefs', 'dokan'),
@@ -194,4 +194,82 @@ function _remove_reviews_tab( $tabs ) {
 add_action( 'woocommerce_after_single_product_summary', '_show_reviews', 15 );
 function _show_reviews() {
     comments_template();
+}
+
+// Rename shipping
+add_filter('gettext', 'rename_shipping_address_text', 10, 3);
+function rename_shipping_address_text($translated, $text, $domain)
+{
+
+    if ($text === 'Shipping address') {
+        $translated = __('Event address', $domain);
+    }
+
+    if ($text === 'Shipping to') {
+        $translated = __('Event in', $domain);
+    }
+
+    if ($text === 'Shipping') {
+        $translated = __('Event location', $domain);
+    }
+
+    if ($text === 'Shipping:') {
+        $translated = __('Event location:', $domain);
+    }
+
+    if ($text === 'Shipping %d') {
+        $translated = __('Location %d', $domain);
+    }
+
+    if ($text === 'shipping packages') {
+        $translated = __('event locations', $domain);
+    }
+
+    if ($text === 'Shipping to %s.') {
+        $translated = __('Event in %s.', $domain);
+    }
+
+    if ($text === 'Ship to a different address?') {
+        $translated = __('Event held at a different address?', $domain);
+    }
+
+    return $translated;
+}
+
+add_filter('woocommerce_cart_shipping_method_full_label', 'sd_change_shipping_method_name', 10, 2);
+
+function sd_change_shipping_method_name($label, $method) {
+    return "";
+}
+
+add_filter('woocommerce_shipping_package_name', 'sd_change_shipping_pack_name', 10, 3);
+
+/**
+ * Set packagewise seller name
+ *
+ * @param string $title
+ * @param integer $i
+ * @param array $package
+ *
+ * @return string
+ */
+function sd_change_shipping_pack_name($title, $i, $package)
+{
+    return "Event location";
+
+    $user_id = $package['seller_id'];
+
+    if (empty($user_id)) {
+        return $title;
+    }
+
+    if (is_array($user_id)) {
+        $user_id = reset($user_id);
+    }
+
+    $store_info   = dokan_get_store_info($user_id);
+
+    $shipping_label = sprintf('%s %s', __('Shipping: ', 'dokan'), !empty($store_info['store_name']) ? $store_info['store_name'] : '');
+
+    return apply_filters('dokan_shipping_package_name', $shipping_label, $i, $package);
 }
