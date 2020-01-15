@@ -534,20 +534,14 @@ if( $services_query->have_posts() ){ ?>
 	<ul class="services">
 	<?php
 					
-		
-add_filter( 'jetpack_lazy_images_blacklisted_classes', 'exclude_menu_img_class_from_lazy_load', 999, 1 );
-             
-function exclude_menu_img_class_from_lazy_load( $classes ) {
-   $classes[] = 'menu_img';
-   return $classes;
-}											
+
 											
 	// The Services Loop
 if ( $services_query->have_posts() ) {
 	echo '<li>';
     echo '<ul class="menu-items">';
-    while ( $dessert_query->have_posts() ) {
-        $dessert_query->the_post();
+    while ( $services_query->have_posts() ) {
+        $servicest_query->the_post();
 		$s_diets = get_field('s_diets');
     	$post_slug = get_post_field( 'post_name' );
         echo '<li>';
